@@ -1,0 +1,43 @@
+# Dependências e artefatos de build locais — reinstalados/recompilados na imagem.
+node_modules
+.next
+out
+*.tsbuildinfo
+
+# Controle de versão e metadados de ferramenta.
+.git
+.gitignore
+.github
+.vscode
+.idea
+.claude
+.impeccable
+
+# Segredos: nunca entram na imagem.
+.env
+.env.*
+!.env.example
+
+# Logs e temporários.
+*.log
+npm-debug.log*
+yarn-error.log*
+.npm-cache
+.tmp
+
+# Documentação, especificação e acervo de referência: não participam do build.
+docs
+specs
+assets
+README.md
+AGENTS.md
+CLAUDE.md
+PRODUCT.md
+
+# O próprio contexto de build.
+Dockerfile
+.dockerignore
+
+# Lixo de sistema operacional.
+.DS_Store
+Thumbs.db

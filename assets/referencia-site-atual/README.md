@@ -1,0 +1,9 @@
+# Galeria do site atual — material de referência
+
+As 56 fotos numeradas em `galeria/` foram coletadas da [galeria pública da ME Guinchos](https://meguinchos.com.br/fotos/20) em 26/09/2026, após o usuário informar que podem ser usadas no projeto. `manifest.csv` registra índice, arquivo, tamanho, SHA-256 e os campos de revisão por foto. Os arquivos são as versões maiores disponibilizadas pelo site, **não necessariamente os originais da câmera**. Há duas duplas de conteúdo idêntico com nomes diferentes (34/41 e 10/49); o nome do arquivo não comprova o serviço retratado.
+
+Em 28/09/2026, o usuário acrescentou `Cartoes.webp`, `pix-pagamento.webp` e `logo-me-guinchos.png` à mesma pasta. Esses três arquivos **não fazem parte das 56 fotos nem do `manifest.csv`**. As artes de pagamento foram usadas na JHC e servem apenas como referência de estrutura; a ME terá apresentação própria para Pix, cartões e dinheiro confirmados. A logo é candidata e requer revisão de autoria, texto e aplicação antes de substituir a marca textual da prévia.
+
+Estado de todas: `referencia-nao-publicar`. Antes de usar no site, confirmar com Manoel titularidade/autorização comercial, serviço e veículo retratados, vigência da frota, necessidade de ocultar placas/rostos/localização, legenda e arquivo de melhor qualidade. A seleção final deve privilegiar carros, motos, vans/utilitários e as duas ofertas de empilhadeira separadamente. Não reutilizar uma imagem de transporte como prova de operação com empilhadeira.
+
+A numeração `01_` a `56_` preserva a ordem da galeria. Veja a [curadoria preliminar](curadoria-preliminar.md) para candidatos por serviço. Algumas fotos carregam data, local ou outros textos sobrepostos; selecionar e tratar com cuidado. Nunca apontar o site novo diretamente para URLs de mídia do site antigo.

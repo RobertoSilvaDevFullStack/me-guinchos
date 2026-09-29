@@ -1,0 +1,1960 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   ME GUINCHOS — SISTEMA "SERVIÇO AUXILIAR"
+   A linguagem da sinalização viária brasileira. A unidade de construção da
+   página inteira é a PLACA: campo de cor saturada, tarja branca embutida,
+   canto de raio curto, legenda em caixa alta. Ver .impeccable/surfaces/.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("/fonts/overpass-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("/fonts/overpass-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* Chapa esmaltada: o azul comprometido, ocupando campos inteiros. */
+  --azul: #0b4fa0;
+  --azul-fundo: #063a78;
+  --azul-noite: #04203f;
+  --azul-claro: #2e7bd6;
+
+  /* Concreto: o chão de leitura. */
+  --concreto: #edeff1;
+  --concreto-claro: #f6f8f9;
+  --branco: #ffffff;
+
+  /* Grafite da via. */
+  --grafite: #16202a;
+  --grafite-medio: #4a5866;
+  --grafite-claro: #6d7d8c;
+
+  /* Atenção reservada. Nunca decoração. */
+  --ambar: #f2b01e;
+  /* Sobre o azul da placa, o âmbar cheio dá 4,17:1 — reprova em texto pequeno.
+     Esta variante dá 4,88:1 e é a única usada para legenda sobre azul. */
+  --ambar-claro: #f7c34e;
+
+  /* Ação de WhatsApp. Exclusivo. */
+  --verde: #1a7a40;
+  --verde-fundo: #146433;
+
+  --tarja: rgba(255, 255, 255, 0.92);
+  --linha: #d3dae0;
+
+  --raio: 10px;
+  --raio-tarja: 5px;
+
+  --fonte: "Overpass", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --ritmo: 1.5rem;
+  --sombra-placa: 0 6px 18px rgba(4, 32, 63, 0.1);
+  --sombra-alta: 0 14px 40px rgba(4, 32, 63, 0.24);
+  --transicao: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  /* `clip` e não `hidden`: preserva o position:sticky do cabeçalho. */
+  overflow-x: clip;
+  /* Superfícies do navegador: nada fica com o padrão de ninguém. */
+  scrollbar-color: var(--azul) var(--concreto);
+  scrollbar-width: thin;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--concreto);
+  color: var(--grafite);
+  font-family: var(--fonte);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding-bottom: calc(74px + env(safe-area-inset-bottom));
+}
+
+::selection {
+  background: var(--ambar);
+  color: var(--azul-noite);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--concreto);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--azul);
+  border: 3px solid var(--concreto);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--azul-fundo);
+}
+
+/* Anel de foco de dois tons. O âmbar sozinho dá 1,9:1 sobre branco e reprova o
+   mínimo de 3:1 para elemento não textual. O anel interno grafite-noite garante
+   contraste em fundo claro; o externo âmbar garante em fundo escuro. Assim o
+   foco é visível em qualquer superfície do site. */
+:focus-visible {
+  outline: 3px solid var(--azul-noite);
+  outline-offset: 0;
+  box-shadow: 0 0 0 6px var(--ambar);
+  border-radius: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 2px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  max-width: 66ch;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+dl,
+dd,
+dt,
+figure {
+  margin: 0;
+}
+
+.page-shell {
+  width: min(100% - 2rem, 1180px);
+  margin-inline: auto;
+}
+
+.atalho-conteudo {
+  position: fixed;
+  z-index: 60;
+  top: -120px;
+  left: 1rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--ambar);
+  color: var(--azul-noite);
+  font-weight: 800;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-alta);
+  transition: top var(--transicao);
+}
+
+.atalho-conteudo:focus {
+  top: 1rem;
+}
+
+/* ==========================================================================
+   A PLACA — a única unidade de construção
+   ========================================================================== */
+[data-placa] {
+  position: relative;
+  border-radius: var(--raio);
+  isolation: isolate;
+}
+
+/* A tarja: borda branca embutida, como a chapa esmaltada real.
+   Nasce acesa. Só o componente cliente, ao montar, marca <html class="com-luz">
+   e autoriza o CSS a apagá-la para depois acendê-la na entrada do viewport.
+   Sem JS, sem IntersectionObserver ou com movimento reduzido, nada some. */
+[data-placa="azul"]::after,
+[data-placa="branca"]::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-width: 2.5px;
+  border-style: solid;
+  border-color: var(--tarja);
+  border-radius: var(--raio-tarja);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 420ms ease-out, transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.com-luz [data-placa="azul"]:not(.esta-acesa)::after,
+.com-luz [data-placa="branca"]:not(.esta-acesa)::after {
+  opacity: 0;
+  transform: scale(1.012);
+}
+
+[data-placa="azul"] {
+  background: var(--azul);
+  color: var(--branco);
+  box-shadow: var(--sombra-placa);
+}
+
+[data-placa="branca"] {
+  background: var(--branco);
+  color: var(--grafite);
+  box-shadow: var(--sombra-placa);
+  /* A 30% a tarja lia como borda de cartão. Precisa ter peso de chapa. */
+  --tarja: rgba(11, 79, 160, 0.55);
+}
+
+/* Retrorreflexão: a varredura de luz que acende a placa, uma vez só. */
+[data-placa="azul"]::before,
+[data-placa="branca"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    102deg,
+    transparent 36%,
+    rgba(255, 255, 255, 0.26) 47%,
+    rgba(255, 255, 255, 0.05) 54%,
+    transparent 62%
+  );
+  transform: translateX(-130%);
+  opacity: 0;
+}
+
+[data-placa="branca"]::before {
+  background: linear-gradient(
+    102deg,
+    transparent 36%,
+    rgba(11, 79, 160, 0.1) 47%,
+    transparent 62%
+  );
+}
+
+[data-placa="azul"].esta-acesa::before,
+[data-placa="branca"].esta-acesa::before {
+  animation: varredura 950ms cubic-bezier(0.16, 1, 0.3, 1) 120ms 1;
+}
+
+@keyframes varredura {
+  0% {
+    transform: translateX(-130%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(130%);
+    opacity: 0;
+  }
+}
+
+/* A luz volta quando o dedo ou o foco chega. */
+[data-placa="azul"]:hover::before,
+[data-placa="branca"]:hover::before,
+[data-placa]:focus-within::before {
+  animation: varredura 750ms cubic-bezier(0.16, 1, 0.3, 1) 1;
+}
+
+/* ==========================================================================
+   LEGENDAS EM CAIXA ALTA — o alfabeto único, diferenciado só por caixa e peso
+   ========================================================================== */
+.legenda-caps {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.titulo-secao {
+  max-width: 44rem;
+  margin-bottom: 1.75rem;
+}
+
+.titulo-secao h2 {
+  font-size: clamp(1.8rem, 6.6vw, 3rem);
+  line-height: 1.04;
+  color: var(--azul-noite);
+}
+
+.titulo-secao p {
+  margin-top: 1rem;
+  color: var(--grafite-medio);
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   AÇÕES — botões como placas de ação
+   ========================================================================== */
+.acao {
+  display: inline-flex;
+  min-height: 56px;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--raio-tarja);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  transition: background-color var(--transicao), color var(--transicao),
+    box-shadow var(--transicao), transform var(--transicao);
+}
+
+.acao > span {
+  flex: 1 1 auto;
+}
+
+.acao svg {
+  flex: 0 0 auto;
+}
+
+.acao__seta {
+  opacity: 0.75;
+  transition: transform var(--transicao);
+}
+
+.acao:hover .acao__seta {
+  transform: translateX(3px);
+}
+
+.acao--whatsapp {
+  background: var(--verde);
+  color: var(--branco);
+  box-shadow: 0 4px 0 var(--verde-fundo);
+}
+
+.acao--whatsapp:hover {
+  background: var(--verde-fundo);
+  box-shadow: 0 2px 0 var(--verde-fundo);
+  transform: translateY(2px);
+}
+
+.acao--ligar {
+  background: var(--branco);
+  color: var(--azul-fundo);
+  box-shadow: 0 4px 0 rgba(4, 32, 63, 0.35);
+}
+
+.acao--ligar:hover {
+  background: var(--concreto);
+  box-shadow: 0 2px 0 rgba(4, 32, 63, 0.35);
+  transform: translateY(2px);
+}
+
+.acao--compacta {
+  min-height: 46px;
+  padding-inline: 0.85rem;
+  font-size: 0.92rem;
+  box-shadow: 0 3px 0 var(--verde-fundo);
+}
+
+.acao__rotulo-curto {
+  display: none;
+}
+
+/* ==========================================================================
+   CABEÇALHO
+   ========================================================================== */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--azul-noite);
+  border-bottom: 3px solid var(--azul);
+  box-shadow: 0 6px 22px rgba(4, 32, 63, 0.4);
+}
+
+.cabecalho__interno {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.5rem;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+}
+
+.marca__logo {
+  width: auto;
+  height: 44px;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+.cabecalho__atalhos {
+  display: none;
+  gap: 1.4rem;
+}
+
+.cabecalho__atalhos a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #c3d8ee;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transicao), border-color var(--transicao);
+}
+
+.cabecalho__atalhos a:hover {
+  color: var(--branco);
+  border-bottom-color: var(--ambar);
+}
+
+/* ==========================================================================
+   HERÓI — a placa-mãe e o visor fotográfico
+   ========================================================================== */
+.heroi {
+  padding-block: 0.9rem 2rem;
+  background: linear-gradient(var(--concreto) 0%, var(--concreto) 55%, var(--concreto-claro) 100%);
+}
+
+.heroi__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.placa--mae {
+  padding: 1.25rem 1.2rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.placa__campo {
+  position: relative;
+  z-index: 3;
+}
+
+.heroi__titulo {
+  font-size: clamp(2.05rem, 8.4vw, 3.9rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--branco);
+}
+
+.heroi__descricao {
+  margin-top: 0.7rem;
+  max-width: 34rem;
+  color: #d3e4f5;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.heroi__acoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-top: 1.15rem;
+}
+
+/* Faixa suplementar: em sinalização ela pendura sob a placa principal. */
+.suplemento {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.1rem;
+  padding-top: 0.85rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.28);
+}
+
+.suplemento__item dt {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ambar-claro);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.suplemento__item dd {
+  margin-top: 0.15rem;
+  color: #d3e4f5;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.heroi__visor {
+  display: flex;
+  flex-direction: column;
+}
+
+.visor {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  border-radius: var(--raio);
+  background: var(--azul-noite);
+  box-shadow: var(--sombra-placa);
+  min-height: 210px;
+}
+
+.visor__foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 520ms ease, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.visor__foto.esta-visivel {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.visor__legenda {
+  position: absolute;
+  inset: auto 0.7rem 0.7rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  align-items: flex-start;
+  padding: 0.5rem 0.75rem;
+  background: var(--azul-noite);
+  border-radius: var(--raio-tarja);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  max-width: calc(100% - 1.4rem);
+}
+
+.visor__etiqueta {
+  color: var(--ambar);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.visor__texto {
+  color: var(--branco);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.visor__comando {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.7rem;
+}
+
+.visor__contador {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  color: var(--grafite-medio);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.visor__contador strong {
+  color: var(--azul-fundo);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.visor__botoes {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.botao-visor {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  background: var(--branco);
+  color: var(--azul-fundo);
+  border: 2px solid var(--linha);
+  border-radius: var(--raio-tarja);
+  cursor: pointer;
+  transition: background-color var(--transicao), color var(--transicao),
+    border-color var(--transicao);
+}
+
+.botao-visor:hover {
+  background: var(--azul);
+  color: var(--branco);
+  border-color: var(--azul);
+}
+
+.botao-visor__voltar {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   PÓRTICO — a fileira de placas sob a qual se passa
+   ========================================================================== */
+.portico {
+  padding-block: 0 2.25rem;
+  background: var(--concreto-claro);
+}
+
+.portico__grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.portico__placa {
+  display: flex;
+  min-height: 86px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.95rem 1rem;
+  text-align: left;
+  transition: background-color var(--transicao), transform var(--transicao);
+}
+
+.portico__placa span {
+  position: relative;
+  z-index: 3;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.portico__placa svg {
+  position: relative;
+  z-index: 3;
+  color: var(--ambar);
+}
+
+.portico__placa:hover {
+  background: var(--azul-fundo);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   SERVIÇOS — unidade idêntica repetida, lida por varredura
+   ========================================================================== */
+.servicos {
+  padding-block: 2.5rem 2.75rem;
+  background: var(--concreto);
+}
+
+.servicos__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+/* No celular a placa de serviço deita: pictograma à esquerda, leitura à
+   direita. A unidade fica compacta o bastante para ser lida por varredura. */
+.servico {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "picto texto"
+    "link  link";
+  align-items: start;
+  column-gap: 0.9rem;
+  padding: 1.05rem 1.1rem 0.9rem;
+}
+
+.servico > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* O pictograma é vazado em branco sobre o campo azul, como o símbolo de uma
+   placa de serviço real — não um quadradinho de ícone sobre cartão branco. */
+.servico__pictograma {
+  grid-area: picto;
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  background: var(--branco);
+  color: var(--azul);
+  border-radius: var(--raio-tarja);
+}
+
+.servico__texto {
+  grid-area: texto;
+}
+
+.servico h3 {
+  font-size: 1.12rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--branco);
+}
+
+.servico p {
+  margin-top: 0.4rem;
+  color: #d3e4f5;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.servico__link {
+  grid-area: link;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.32);
+  color: var(--branco);
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition: color var(--transicao);
+}
+
+.servico__link svg {
+  transition: transform var(--transicao);
+}
+
+.servico__link:hover {
+  color: var(--ambar-claro);
+}
+
+.servico__link:hover svg {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   FAIXA FOTOGRÁFICA — a via passando sob a placa
+   `clip-path` recorta sem virar bloco contentor de position:fixed, então a
+   mídia continua ancorada no viewport. Funciona no iOS Safari, onde
+   background-attachment:fixed não funciona.
+   ========================================================================== */
+.faixa {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--azul-noite);
+  /* Faixa superior livre: no celular a placa cobria a foto de borda a borda e a
+     prova operacional sumia. Agora sobra fotografia legível acima dela. */
+  padding-block: 7rem 2.5rem;
+  min-height: 74svh;
+}
+
+.faixa__media {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.faixa__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* `cover` sem `object-position` recortava um flanco de caminhão desfocado. Cada
+   faixa é enquadrada no que ela precisa provar. */
+.faixa--empilhadeira .faixa__img {
+  object-position: 66% 46%;
+}
+
+.faixa--fechamento .faixa__img {
+  object-position: 50% 40%;
+}
+
+/* Véu leve: a fotografia tem de ser lida como fotografia. O texto nunca fica
+   solto sobre ela — vai sempre numa placa opaca, como na via. */
+.faixa__veu {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(4, 32, 63, 0.12) 0%, rgba(4, 32, 63, 0.55) 88%),
+    linear-gradient(96deg, rgba(11, 79, 160, 0.42) 0%, rgba(11, 79, 160, 0.06) 72%);
+}
+
+.faixa__conteudo {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 2rem, 1180px);
+}
+
+.faixa__texto {
+  max-width: 40rem;
+  padding: 1.45rem 1.35rem 1.35rem;
+  background: var(--azul);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-alta);
+}
+
+.faixa__texto > * {
+  position: relative;
+  z-index: 3;
+}
+
+.faixa__texto h2 {
+  font-size: clamp(1.8rem, 6.6vw, 2.9rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  color: var(--branco);
+  max-width: 18ch;
+}
+
+.faixa__texto p {
+  margin-top: 0.85rem;
+  max-width: 44ch;
+  color: #dbe8f5;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.faixa__texto .acao {
+  margin-top: 1.25rem;
+  max-width: 26rem;
+}
+
+.plaqueta {
+  display: inline-flex;
+  margin-top: 1.5rem;
+  padding: 0.7rem 0.95rem;
+  background: var(--branco);
+  border-radius: var(--raio-tarja);
+  box-shadow: var(--sombra-alta);
+}
+
+.plaqueta figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.plaqueta__etiqueta {
+  color: var(--azul);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.plaqueta__legenda {
+  color: var(--grafite);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.3;
+  max-width: 30ch;
+}
+
+/* ==========================================================================
+   COMO ACIONAR — sequência linear; aqui o número é informação
+   ========================================================================== */
+.acionamento {
+  padding-block: 2.75rem 3rem;
+  background: var(--concreto-claro);
+}
+
+.acionamento__passos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+.passo {
+  padding: 1.15rem 1.15rem 1rem;
+}
+
+.passo > * {
+  position: relative;
+  z-index: 3;
+}
+
+.passo__numero {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 0.85rem;
+  background: var(--ambar);
+  color: var(--azul-noite);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.passo h3 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: var(--azul-noite);
+}
+
+.passo p {
+  margin-top: 0.55rem;
+  color: var(--grafite-medio);
+  font-size: 0.95rem;
+}
+
+.passo strong {
+  color: var(--grafite);
+  font-weight: 800;
+}
+
+.passo__link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  color: var(--azul);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(11, 79, 160, 0.35);
+  transition: color var(--transicao), text-decoration-color var(--transicao);
+}
+
+.passo__link:hover {
+  color: var(--azul-fundo);
+  text-decoration-color: currentColor;
+}
+
+/* ==========================================================================
+   REGISTROS — a prova fotográfica
+   ========================================================================== */
+.registros {
+  padding-block: 2.75rem 3rem;
+  background: var(--concreto);
+}
+
+.registros__grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+/* A galeria NÃO tem revelação animada, de propósito.
+   Ela já teve: uma cortina que recuava quando o IntersectionObserver acendia a
+   figura. Duas vezes isso deixou a prova fotográfica invisível — primeiro
+   porque `clip-path` no próprio alvo faz o Chrome reportar intersectionRatio 0
+   (impasse permanente), depois porque bastava o observador não disparar para a
+   cortina ficar levantada para sempre.
+   As fotos são a prova operacional do cliente: nenhuma animação pode ter o
+   poder de escondê-las. O momento autoral da página é a retrorreflexão das
+   placas, e ele basta. */
+.registro {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--raio);
+  background: var(--azul-noite);
+  box-shadow: var(--sombra-placa);
+}
+
+.registro img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.registro:hover img {
+  transform: scale(1.04);
+}
+
+.registro figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2rem 0.7rem 0.6rem;
+  background: linear-gradient(transparent, rgba(4, 32, 63, 0.94));
+  color: var(--branco);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* ==========================================================================
+   PAGAMENTO
+   ========================================================================== */
+.pagamento {
+  padding-block: 2.75rem 3rem;
+  background: var(--concreto-claro);
+}
+
+.pagamento__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+.meio-pagamento {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.15rem;
+}
+
+.meio-pagamento > * {
+  position: relative;
+  z-index: 3;
+}
+
+.meio-pagamento__cabeca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--azul);
+}
+
+.meio-pagamento__cabeca h3 {
+  font-size: 1.22rem;
+  color: var(--azul-noite);
+}
+
+.meio-pagamento__arte {
+  display: grid;
+  place-items: center;
+  min-height: 68px;
+  margin-block: 0.85rem;
+  padding: 0.6rem;
+  background: var(--concreto);
+  border-radius: var(--raio-tarja);
+}
+
+.meio-pagamento__imagem {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.meio-pagamento__imagem--pix {
+  max-height: 46px;
+}
+
+.meio-pagamento__imagem--cartoes {
+  max-height: 54px;
+}
+
+.meio-pagamento__arte--especie span {
+  color: var(--verde);
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.meio-pagamento p {
+  color: var(--grafite-medio);
+  font-size: 0.92rem;
+}
+
+.meio-pagamento__selo {
+  align-self: flex-start;
+  margin-top: 1rem;
+  padding: 0.3rem 0.65rem;
+  background: var(--azul);
+  color: var(--branco);
+  border-radius: 3px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   FECHAMENTO — a placa maior da página, sobre a via
+   ========================================================================== */
+.faixa--fechamento {
+  min-height: 86svh;
+}
+
+.fechamento {
+  padding: 1.75rem 1.5rem 1.6rem;
+  background: var(--azul);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-alta);
+  max-width: 44rem;
+}
+
+.fechamento > * {
+  position: relative;
+  z-index: 3;
+}
+
+.fechamento h2 {
+  font-size: clamp(2rem, 7.4vw, 3.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--branco);
+}
+
+.fechamento p {
+  margin-top: 0.9rem;
+  color: #d9e8f7;
+  font-size: 1.04rem;
+}
+
+.fechamento__acoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
+}
+
+.suplemento--fechamento {
+  margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+.rodape {
+  background: var(--azul-noite);
+  color: #9fb6ca;
+  border-top: 3px solid var(--azul);
+}
+
+.rodape__interno {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding-block: 2.5rem;
+}
+
+.rodape__marca {
+  display: block;
+  color: var(--branco);
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+.rodape__resumo {
+  margin-top: 0.5rem;
+  max-width: 34ch;
+  color: #c3d8ee;
+  font-size: 0.92rem;
+}
+
+.rodape__dados {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+}
+
+.rodape__dados dt {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ambar);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.rodape__dados dd {
+  margin-top: 0.15rem;
+  color: var(--branco);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* Alvo de toque de 44px: o telefone do rodapé é um link de ligação real. */
+.rodape__dados dd a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+}
+
+.rodape__dados dd:has(a) {
+  margin-top: 0;
+}
+
+.rodape__dados dd a:hover {
+  text-decoration-color: var(--ambar);
+}
+
+.rodape__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.4rem;
+}
+
+.rodape__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #c3d8ee;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transicao), border-color var(--transicao);
+}
+
+.rodape__nav a:hover {
+  color: var(--branco);
+  border-bottom-color: var(--ambar);
+}
+
+/* Faixa legal do rodapé: dados da empresa à esquerda, crédito à direita. */
+.rodape__legal {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.rodape__legal-interno {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-block: 1.1rem 1.6rem;
+}
+
+.rodape__direitos,
+.rodape__credito {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.5rem;
+  margin: 0;
+  max-width: none;
+  color: #8fa5b8;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.rodape__legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #c3d8ee;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(195, 216, 238, 0.45);
+  transition: color var(--transicao), text-decoration-color var(--transicao);
+}
+
+.rodape__legal a:hover {
+  color: var(--branco);
+  text-decoration-color: var(--ambar);
+}
+
+/* ==========================================================================
+   BARRA FIXA DE CONTATO (MOBILE)
+   ========================================================================== */
+.barra-contato {
+  position: fixed;
+  z-index: 45;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom));
+  background: var(--azul-noite);
+  border-top: 3px solid var(--azul);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.42);
+}
+
+.barra-contato .acao {
+  min-height: 50px;
+  justify-content: center;
+  gap: 0.45rem;
+  padding-inline: 0.5rem;
+  font-size: 0.95rem;
+  box-shadow: none;
+}
+
+.barra-contato .acao:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.barra-contato .acao > span {
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   PÁGINA: ÁREAS PARA CONSULTA
+   ========================================================================== */
+.areas {
+  padding-block: 2.5rem 4rem;
+  background: var(--concreto);
+  min-height: 70svh;
+}
+
+.areas h1 {
+  max-width: 20ch;
+  font-size: clamp(2rem, 7.6vw, 3.3rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  color: var(--azul-noite);
+}
+
+.areas__lead {
+  margin-top: 1rem;
+  max-width: 52ch;
+  color: var(--grafite-medio);
+  font-size: 1.05rem;
+}
+
+.areas__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-block: 1.75rem;
+}
+
+.areas__local {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.95rem 1.1rem;
+  font-weight: 700;
+  color: var(--azul-noite);
+}
+
+.areas__local > * {
+  position: relative;
+  z-index: 3;
+}
+
+.areas__local svg {
+  color: var(--azul);
+  flex: 0 0 auto;
+}
+
+.areas__nota {
+  max-width: 62ch;
+  color: var(--grafite-medio);
+  font-size: 0.93rem;
+}
+
+.areas__acoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  margin-top: 1.75rem;
+  max-width: 30rem;
+}
+
+.areas__voltar {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  color: var(--azul);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(11, 79, 160, 0.35);
+}
+
+.areas__voltar svg {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   PÁGINA: POLÍTICA DE PRIVACIDADE
+   Texto longo no mesmo sistema: medida de leitura curta, placas para a
+   identificação do controlador e para o canal de exercício de direitos.
+   ========================================================================== */
+.politica {
+  padding-block: 2.5rem 3.5rem;
+  background: var(--concreto);
+}
+
+.politica h1 {
+  max-width: 16ch;
+  font-size: clamp(2rem, 7.6vw, 3.3rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  color: var(--azul-noite);
+}
+
+.politica__lead {
+  margin-top: 1rem;
+  max-width: 62ch;
+  color: var(--grafite-medio);
+  font-size: 1.05rem;
+}
+
+.politica__data {
+  margin-top: 0.85rem;
+  color: var(--grafite-medio);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.politica__identificacao {
+  margin-top: 2rem;
+  padding: 1.25rem 1.3rem;
+}
+
+.politica__identificacao > * {
+  position: relative;
+  z-index: 3;
+}
+
+.politica__identificacao h2 {
+  font-size: 1.15rem;
+  color: var(--azul-noite);
+}
+
+.politica__nota-marca {
+  margin-top: 0.6rem;
+  max-width: 56ch;
+  color: var(--grafite-medio);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.politica__identificacao dl {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--linha);
+}
+
+/* O endereço usa <br>: precisa de entrelinha de leitura, não de rótulo. */
+.politica__identificacao dd {
+  line-height: 1.5;
+}
+
+.politica__identificacao dt {
+  color: var(--azul);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.politica__identificacao dd {
+  margin-top: 0.15rem;
+  color: var(--grafite);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.politica__identificacao dd a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--azul);
+  text-decoration: underline;
+  text-decoration-color: rgba(11, 79, 160, 0.35);
+}
+
+.politica__secao {
+  margin-top: 2.5rem;
+}
+
+.politica__secao h2 {
+  max-width: 24ch;
+  font-size: clamp(1.4rem, 5.4vw, 1.85rem);
+  line-height: 1.12;
+  color: var(--azul-noite);
+}
+
+.politica__secao h3 {
+  margin-top: 1.5rem;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--azul);
+}
+
+.politica__secao p {
+  margin-top: 0.85rem;
+  max-width: 68ch;
+  color: var(--grafite-medio);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.politica__secao p strong {
+  color: var(--grafite);
+  font-weight: 800;
+}
+
+.politica__secao p a {
+  color: var(--azul);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(11, 79, 160, 0.35);
+}
+
+.politica__secao p a:hover {
+  text-decoration-color: currentColor;
+}
+
+.politica__lista,
+.politica__bases {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+  max-width: 68ch;
+}
+
+.politica__lista li,
+.politica__bases li {
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--linha);
+  color: var(--grafite-medio);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.politica__lista li strong,
+.politica__bases li strong {
+  display: block;
+  color: var(--grafite);
+  font-weight: 800;
+}
+
+.politica__bases li span {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--azul);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.politica__lista--direitos li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.politica__lista--direitos svg {
+  flex: 0 0 auto;
+  margin-top: 0.42rem;
+  color: var(--azul);
+}
+
+.politica__acionar {
+  margin-top: 2.5rem;
+  padding: 1.5rem 1.4rem 1.4rem;
+  background: var(--azul);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-placa);
+}
+
+.politica__acionar > * {
+  position: relative;
+  z-index: 3;
+}
+
+.politica__acionar h2 {
+  font-size: clamp(1.5rem, 5.6vw, 2rem);
+  line-height: 1.1;
+  color: var(--branco);
+}
+
+.politica__acionar p {
+  margin-top: 0.85rem;
+  max-width: 62ch;
+  color: #d3e4f5;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.politica__canais {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+  padding-top: 1.1rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.28);
+}
+
+.politica__canais dt {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ambar-claro);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.politica__canais dd {
+  margin-top: 0.15rem;
+  color: var(--branco);
+  font-size: 0.95rem;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.politica__canais dd a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--branco);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+}
+
+.politica__canais dd a:hover {
+  text-decoration-color: var(--ambar);
+}
+
+/* O e-mail é longo: não pode estourar a placa em 360px. */
+.politica__secao a,
+.politica__identificacao dd a {
+  word-break: break-word;
+}
+
+.politica__acoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+
+/* ==========================================================================
+   TABLET E DESKTOP
+   ========================================================================== */
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+
+  .page-shell,
+  .faixa__conteudo {
+    width: min(100% - 3rem, 1180px);
+  }
+
+  .cabecalho__interno {
+    min-height: 80px;
+  }
+
+  .marca__logo {
+    height: 52px;
+    max-width: 230px;
+  }
+
+  .heroi {
+    padding-block: 2rem 3.25rem;
+  }
+
+  .heroi__grade {
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+    gap: 1.1rem;
+  }
+
+  .placa--mae {
+    padding: 2.5rem 2.25rem 2rem;
+  }
+
+  .heroi__acoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .suplemento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .visor {
+    min-height: 340px;
+  }
+
+  .portico__grade {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .portico__placa {
+    min-height: 108px;
+  }
+
+  .servicos__grade,
+  .pagamento__grade,
+  .registros__grade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  /* Em coluna estreita a placa de serviço volta a ficar em pé. */
+  .servico {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.35rem 1.3rem 1.15rem;
+  }
+
+  .servico__pictograma {
+    margin-bottom: 0.9rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .servico h3 {
+    font-size: 1.2rem;
+  }
+
+  .servico__link {
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .acionamento__passos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .passo {
+    padding: 1.5rem 1.4rem 1.3rem;
+  }
+
+  .titulo-secao {
+    margin-bottom: 2.5rem;
+  }
+
+  .servicos,
+  .acionamento,
+  .registros,
+  .pagamento {
+    padding-block: 4.5rem 5rem;
+  }
+
+  .faixa {
+    min-height: 66svh;
+    padding-block: 4.5rem;
+  }
+
+  .faixa__texto {
+    padding: 2.25rem 2.1rem 2rem;
+  }
+
+  .portico {
+    padding-bottom: 3.5rem;
+  }
+
+  .fechamento {
+    padding: 2.75rem 2.5rem 2.25rem;
+  }
+
+  .fechamento__acoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 34rem;
+  }
+
+  .areas__grade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .areas__acoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 38rem;
+  }
+
+  .politica {
+    padding-block: 3.5rem 5rem;
+  }
+
+  .politica__identificacao {
+    padding: 1.9rem 1.9rem 1.7rem;
+  }
+
+  .politica__identificacao dl,
+  .politica__canais {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem 2rem;
+  }
+
+  .politica__secao {
+    margin-top: 3.25rem;
+  }
+
+  .politica__acionar {
+    padding: 2.25rem 2.1rem 2rem;
+  }
+
+  .politica__acoes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 34rem;
+  }
+
+  .rodape__interno {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .rodape__nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .rodape__legal-interno {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .rodape__credito {
+    text-align: right;
+  }
+
+  .barra-contato {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cabecalho__atalhos {
+    display: flex;
+  }
+
+  .acao__rotulo-curto {
+    display: none;
+  }
+}
+
+@media (min-width: 1100px) {
+  .servicos__grade,
+  .registros__grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pagamento__grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .areas__grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .faixa {
+    padding-block: 6rem;
+  }
+}
+
+/* Telas estreitas: 360px é a base de aceite. */
+@media (max-width: 420px) {
+  .acao__rotulo {
+    display: none;
+  }
+
+  .acao__rotulo-curto {
+    display: inline;
+  }
+
+  .marca__logo {
+    height: 38px;
+    max-width: 148px;
+  }
+
+  .acao--compacta {
+    min-height: 44px;
+    padding-inline: 0.7rem;
+  }
+}
+
+/* ==========================================================================
+   MOVIMENTO REDUZIDO — a luz fica acesa, a via para de passar
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-placa="azul"]::after,
+  [data-placa="branca"]::after {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-placa="azul"]::before,
+  [data-placa="branca"]::before {
+    display: none;
+  }
+
+  .registro img {
+    transform: none;
+  }
+
+  .faixa {
+    clip-path: none;
+  }
+
+  .faixa__media {
+    position: absolute;
+  }
+
+  .visor__foto {
+    transform: none;
+  }
+}
