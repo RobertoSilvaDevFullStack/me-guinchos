@@ -1,5 +1,5 @@
 import { Pictograma } from "@/components/Pictograma";
-import { previewContactLinks } from "@/lib/contact";
+import { siteContactLinks } from "@/lib/contact";
 
 /** Barra fixa de contato no mobile. As duas ações nunca saem do alcance do polegar. */
 export function BarraContato() {
@@ -7,7 +7,7 @@ export function BarraContato() {
     <nav className="barra-contato" aria-label="Contato rápido">
       <a
         className="acao acao--whatsapp"
-        href={previewContactLinks.whatsappHref}
+        href={siteContactLinks.whatsappHref}
         aria-label="Consultar pelo WhatsApp"
       >
         <Pictograma nome="whatsapp" tamanho={22} />
@@ -15,8 +15,8 @@ export function BarraContato() {
       </a>
       <a
         className="acao acao--ligar"
-        href={previewContactLinks.phoneHref}
-        aria-label={`Ligar para ${previewContactLinks.phoneDisplay}`}
+        href={siteContactLinks.phoneHref}
+        aria-label={`Ligar para ${siteContactLinks.phoneDisplay}`}
       >
         <Pictograma nome="telefone" tamanho={20} />
         <span>Ligar agora</span>

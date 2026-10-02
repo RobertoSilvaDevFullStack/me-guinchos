@@ -7,9 +7,9 @@
 | `/` | Marca + guincho para veículos leves na região confirmada | MVP |
 | `/guincho-para-carros/` | Pane/reboque de carro | Criar se serviço confirmado e conteúdo específico |
 | `/guincho-para-motos/` | Reboque de moto | Criar se serviço confirmado |
-| `/guincho-para-vans/` | Van/utilitário; informar limites | Criar se capacidade confirmada |
-| `/transporte-de-empilhadeiras/` | Carregamento e transporte de empilhadeiras | Oferta relatada pelo usuário em 28/09; publicar após validação do escopo e dos limites operacionais |
-| `/servicos-com-empilhadeira/` | Movimentação de cargas com empilhadeira própria no local | Posse do equipamento relatada em 28/09; publicar após validação da operação, do operador e dos limites |
+| `/guincho-para-vans/` | Van/utilitário; consulta por modelo | Criar com conteúdo próprio e copy consultiva, sem capacidade inventada |
+| `/transporte-de-empilhadeiras/` | Carregamento e transporte de empilhadeiras | Oferta confirmada; criar rota própria somente com conteúdo/prova específicos e copy consultiva |
+| `/servicos-com-empilhadeira/` | Movimentação de cargas com empilhadeira própria no local | Oferta confirmada; página/anúncio próprio ainda exige prova da operação e conteúdo específico |
 | `/areas-de-atendimento/` | Setores, bairros e trechos efetivamente atendidos | Raio aproximado e locais candidatos informados; delimitação publicável ainda depende de D03 |
 | `/sobre/` | Equipe e operação com provas aprovadas | Opcional MVP |
 | `/politica-de-privacidade/` | Transparência sobre dados e contato | Obrigatória antes do lançamento |
@@ -69,7 +69,7 @@ A promessa do anúncio, o H1, o serviço descrito, a área/trecho e o destino do
 
 ### Critérios para uma página local existir e ser publicada
 
-1. **Operação:** o usuário confirmou em 28/09 o telefone, o raio aproximado, as duas linhas de empilhadeira e o atendimento **todos os dias, das 7h às 22h, para todos os serviços**. D01/D03/D05 ainda exigem validar limites, equipamento/operador, capacidade e setores ou trechos exatos aplicáveis a cada página. D06 fixa domínio e URL canônica. Registrar quem confirmou, quando e a precisão autorizada da alegação.
+1. **Operação:** o contato definitivo foi corrigido em 01/10 para `+55 11 93029-9233`; o raio aproximado, as duas linhas de empilhadeira e o atendimento **todos os dias, das 7h às 22h, para todos os serviços** estão confirmados. D01/D05 foram resolvidas para o site atual por copy consultiva, sem limites técnicos. D03 ainda exige setores ou trechos exatos para páginas locais, e qualquer alegação técnica nova exige confirmação própria. D06 fixa domínio e URL canônica em `https://meguinchos.com.br`. Registrar quem confirmou, quando e a precisão autorizada da alegação.
 2. **Valor próprio:** explicar quais serviços atendem naquele local, limites reais, como informar origem/destino ao atendimento e dúvidas específicas verificadas. Usar foto/registro próprio do contexto apenas com D07 e descrição correta. Não inventar casos atendidos, tempo de chegada, preço ou permissão rodoviária.
 3. **Revisão editorial:** uma pessoa deve conseguir apontar o que a página responde de forma diferente da página geral. Trocar só o nome da cidade ou rodovia no mesmo texto não basta. Se não houver diferença útil, manter a página geral e o link para `/areas-de-atendimento/`.
 4. **SEO e Ads:** página aprovada retorna 200, tem title, descrição, H1, canonical e links internos próprios; anúncio aponta exatamente para a oferta e local aprovados. Incluir no sitemap apenas quando indexável. Rascunhos ficam em preview local/protegido e fora de sitemap/anúncios; páginas sem oferta aprovada não são publicadas.
@@ -90,15 +90,15 @@ Exemplo de apoio: “Seu veículo parou? Informe onde ele está e qual é o mode
 ## Requisitos de descoberta
 
 - Cada rota indexável: `title` e descrição próprios, canonical absoluta, um H1, Open Graph/Twitter com imagem aprovada, `lang="pt-BR"` e conteúdo em HTML legível sem JavaScript.
-- Raiz pública: `/robots.txt`, `/sitemap.xml` e `/llms.txt`; sitemap apenas com páginas 200 e canônicas; `lastmod` apenas quando real. `robots.txt` deve referenciar o sitemap.
+- Raiz pública: `/robots.txt`, `/sitemap.xml` e `/llms.txt`; sitemap apenas com páginas 200, canônicas e autorizadas a indexar; `lastmod` apenas quando real. `robots.txt` referencia o sitemap somente depois da liberação de rastreamento.
 - JSON-LD `LocalBusiness`/`Organization` e `Service` somente com dados confirmados e consistentes com a página. Validar com a [documentação do Google](https://developers.google.com/search/docs/appearance/structured-data/local-business) e teste de resultados avançados.
 - Se informar horários em HTML, metadados ou JSON-LD, usar a mesma janela confirmada para todos os serviços: **todos os dias, 7h–22h**. Não publicar variantes “24h” herdadas de referências.
 - Nome, telefone e área coerentes com o Perfil da Empresa; se o negócio atende no local do cliente, confirmar a configuração de área de serviço e exibição do endereço conforme [Google Business Profile](https://support.google.com/business/answer/3038177?hl=pt-BR).
 - Fotos com nome, tamanho, legenda e alt factuais; não forçar palavras-chave em alt.
 
-## Migração se o domínio atual for mantido
+## Migração no domínio mantido
 
-Antes de codificar redirects: obter sitemap e lista de URLs antigas, dados de Search Console se disponíveis, páginas com tráfego/backlinks e equivalente novo. Criar uma tabela `URL antiga → URL nova → justificativa`; testar 301, canonical, ausência de cadeia e sitemap final. Não apagar em massa páginas antigas sem inventário. Se o domínio final mudar, planejar mudança de domínio separadamente.
+O domínio canônico confirmado é `https://meguinchos.com.br`, sem `www`. Antes de completar os redirects: obter sitemap e lista de URLs antigas, dados de Search Console se disponíveis, páginas com tráfego/backlinks e equivalente novo. Criar uma tabela `URL antiga → URL nova → justificativa`; testar 301, canonical, ausência de cadeia e sitemap final. Não apagar em massa páginas antigas sem inventário. Hoje só há equivalência comprovada para `/transporte-de-empilhadeiras/14` e `/fotos/20`; as demais URLs ficam listadas como pendência, sem destino inventado.
 
 ## Campanhas
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Pictograma } from "@/components/Pictograma";
 import { legalContent, siteContent } from "@/content/site";
-import { previewContactLinks } from "@/lib/contact";
+import { siteContactLinks } from "@/lib/contact";
 
 const navegacao = [
   { href: "/#servicos", rotulo: "Serviços" },
@@ -34,8 +34,8 @@ export function SiteFooter() {
                 Contato
               </dt>
               <dd>
-                <a href={previewContactLinks.phoneHref}>
-                  {previewContactLinks.phoneDisplay}
+                <a href={siteContactLinks.phoneHref}>
+                  {siteContactLinks.phoneDisplay}
                 </a>
               </dd>
             </div>
@@ -48,7 +48,7 @@ export function SiteFooter() {
               {item.rotulo}
             </a>
           ))}
-          <Link href="/areas-de-atendimento/">Áreas para consulta</Link>
+          <Link href="/areas-de-atendimento">Áreas para consulta</Link>
         </nav>
       </div>
 
@@ -61,7 +61,7 @@ export function SiteFooter() {
             </span>
             <span>
               CNPJ {legalContent.cnpj} —{" "}
-              <Link href="/politica-de-privacidade/">Política de Privacidade</Link>
+              <Link href="/politica-de-privacidade">Política de Privacidade</Link>
             </span>
           </p>
 

@@ -1,7 +1,19 @@
-/** Número confirmado pelo usuário; teste de recebimento em aparelho real segue pendente. */
-const previewPhone = {
-  e164: "+5511951998799",
-  display: "(11) 95199-8799",
+/**
+ * Número definitivo de telefone e WhatsApp da ME Guinchos, informado pelo
+ * responsável do projeto em 01/10/2026 e registrado como fonte de verdade na
+ * D02 de `docs/00-contexto-fontes.md`.
+ *
+ * Substitui o número `+55 11 95199-8799` usado nas prévias de 27–29/09/2026,
+ * que estava incorreto. O número abaixo coincide com o exibido pelo site
+ * anterior, o que encerra a divergência registrada em `docs/00`.
+ *
+ * `approvalStatus: "confirmado"` é aprovação **editorial**. O teste técnico dos
+ * links em aparelho real — abrir conversa, abrir discador e confirmar o
+ * recebimento pelo responsável — continua pendente e segue listado na D02.
+ */
+const sitePhone = {
+  e164: "+5511930299233",
+  display: "(11) 93029-9233",
   approvalStatus: "confirmado",
 } as const;
 
@@ -34,4 +46,4 @@ export function buildContactLinks(
   };
 }
 
-export const previewContactLinks = buildContactLinks(previewPhone, initialMessage);
+export const siteContactLinks = buildContactLinks(sitePhone, initialMessage);

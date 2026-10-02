@@ -51,10 +51,32 @@ As cópias do acervo ME podem compor apenas a prévia local/protegida, identific
 
 ## ADR-004 — Confirmações comerciais parciais e terceira fatia de prévia
 
-**Data:** 28/09/2026. **Estado:** aplicada ao conteúdo de prévia; publicação ainda sujeita ao gate de validação.
+**Data:** 28/09/2026. **Estado:** aplicada ao conteúdo de prévia; dados de contato e mídia posteriormente atualizados pela ADR-005.
 
 O número `+55 11 95199-8799`, a janela **7h–22h de domingo a domingo para todos os serviços**, Pix/cartões/dinheiro e a existência de equipamento próprio para movimentação de cargas foram confirmados diretamente pelo usuário. O teste do contato em aparelho e o escopo técnico da empilhadeira continuam separados dessas confirmações. A configuração de contato pode marcar o número como confirmado editorialmente, sem afirmar que a ligação e a conversa foram recebidas. O build padrão continua bloqueado enquanto houver dados obrigatórios ou materiais pendentes.
 
 A cobertura do mapa é **aproximada**, centrada na base, com localidades parcialmente incluídas. No conteúdo e nas futuras rotas, usar termos como “consulta de atendimento para endereço/trecho” até validar limites operacionais. Nenhuma lista do rodapé ou sitemap deve transformar o círculo em promessa sobre município ou rodovia inteira. Transporte/carregamento de empilhadeiras e movimentação de cargas com empilhadeira própria têm registros, provas e páginas independentes.
 
 A terceira fatia da home pode mostrar raio indicativo, janela geral confirmada, slide de empilhadeira, Pix/cartões/dinheiro e galeria curada de fotos da ME no preview local/protegido. `Cartoes.webp` contém arte e frase usadas pelo usuário na JHC; ele e o print da JHC servem como **referência visual**, não como material a copiar para a ME. A prévia usa composição própria e só nomeia modalidades confirmadas. `logo-me-guinchos.png` é uma proposta de marca recebida: revisar texto, qualidade, autoria e aplicação antes de substituir a marca atual. Fotos de 600×400 px coletadas do site anterior seguem candidatas até D07 e obtenção dos originais.
+
+## ADR-005 — Dados definitivos preparados com publicação e indexação ainda bloqueadas
+
+**Data:** 01/10/2026. **Estado:** aplicada ao handoff de preparação técnica; não autoriza deploy.
+
+O responsável confirmou o telefone/WhatsApp **+55 11 93029-9233**, o domínio canônico **https://meguinchos.com.br**, a logo atual, a titularidade e reutilização das fotos da ME e a permanência das artes de pagamento. D01/D05 ficam resolvidas para o site atual por decisão editorial: vans, utilitários e os dois serviços de empilhadeira usam linguagem consultiva e não publicam tonelagem, peso máximo, modelos, operador ou limites técnicos. Os dados legais e o endereço publicável já haviam sido confirmados em 29/09/2026 e permanecem na política, no JSON-LD e no `llms.txt`.
+
+Contato, metadata, canonical, Open Graph/Twitter, JSON-LD e arquivos de raiz são preparados com os dados definitivos, mas isso não libera a publicação. `INDEXACAO_LIBERADA = false` mantém `noindex, nofollow`, fecha o `robots.txt` e deixa o sitemap sem URLs. A trava de produção e o bypass explícito `SITE_PREVIEW_BUILD=1` permanecem; uma prévia compilada só pode ser executada localmente ou sob controle de acesso. O teste real de WhatsApp/ligação e o inventário completo de URLs antigas continuam pendentes.
+
+Os redirects conhecidos usam **301** direto para o host canônico, evitando cadeia quando a origem chega por `www`. Não são criadas equivalências para URLs antigas sem destino comprovado. DNS, HTTPS, Coolify e Traefik foram validados externamente, mas nenhum deploy é autorizado por esta ADR.
+
+Na auditoria de handoff, `next-env.d.ts` foi classificado como artefato gerado pelo Next 16: `next dev` aponta para `.next/dev/types` e `next build` para `.next/types`. A alteração observada é preservada como saída automática do último comando, não como decisão manual de arquitetura; não editar esse arquivo à mão nem interpretar futuras alternâncias como mudança funcional sem conferir o gerador da versão instalada.
+
+## ADR-006 — Acervo operacional atualizado e legendas vinculadas aos envios
+
+**Data:** 02/10/2026. **Estado:** aplicada à interface; não altera o bloqueio de publicação.
+
+O Manoel enviou 12 fotografias atuais pelo WhatsApp na noite de 01/10/2026 e pediu que substituíssem o acervo operacional anterior com as legendas que acompanharam cada envio. A interface usa versões WebP sem metadados, preserva o enquadramento integral salvo no recorte social 1200×630 e mantém um manifesto em `public/images/operacoes/README.md` com origem, legenda original, legenda aplicada e alt factual.
+
+A correção pública de “impilhadeira” para “empilhadeira” é exclusivamente ortográfica. A legenda “Guincho para empilhadeira de 7 toneladas” descreve aquele registro fotográfico e não define peso máximo, capacidade de frota ou disponibilidade geral. As mensagens posteriores “Locação de impilhadeira” e “Carga de descarga” não têm vínculo inequívoco com uma foto e não foram convertidas em oferta.
+
+As imagens de empilhadeiras continuam documentando **transporte em plataforma**, não movimentação de cargas no local com empilhadeira própria. A separação exigida por RF05 permanece: o serviço com equipamento próprio segue descrito de forma consultiva e sem usar essas fotos como prova. Placas, marcas e outros identificadores visíveis devem permanecer na revisão editorial do gate de publicação.

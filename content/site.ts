@@ -1,21 +1,52 @@
 import type { Metadata } from "next";
-import galleryCarroBranco from "@/public/images/preview/galeria-carro-branco.jpg";
-import galleryCaminhonete from "@/public/images/preview/galeria-caminhonete.jpg";
-import galleryEmpilhadeira from "@/public/images/preview/galeria-empilhadeira-noturna.jpg";
-import galleryEsportivo from "@/public/images/preview/guincho-carro-esportivo.jpg";
-import galleryMotos from "@/public/images/preview/galeria-motos.jpg";
-import galleryVan from "@/public/images/preview/galeria-van.jpg";
+import guinchoBarco from "@/public/images/operacoes/guincho-barco.webp";
+import guinchoBobcat from "@/public/images/operacoes/guincho-bobcat.webp";
+import guinchoCaminhaoPesado from "@/public/images/operacoes/guincho-caminhao-pesado.webp";
+import guinchoCarroLuxo from "@/public/images/operacoes/guincho-carro-luxo.webp";
+import guinchoEmpilhadeira7Ton from "@/public/images/operacoes/guincho-empilhadeira-7-ton.webp";
+import guinchoEmpilhadeiras from "@/public/images/operacoes/guincho-empilhadeiras.webp";
+import guinchoMaquinaRetroescavadeira from "@/public/images/operacoes/guincho-maquina-retroescavadeira.webp";
+import guinchoPlataformaElevatoria from "@/public/images/operacoes/guincho-plataforma-elevatoria.webp";
+import guinchoPlataformaGrande from "@/public/images/operacoes/guincho-plataforma-grande.webp";
+import guinchoRetroescavadeira from "@/public/images/operacoes/guincho-retroescavadeira.webp";
+import guinchoTresVeiculos from "@/public/images/operacoes/guincho-tres-veiculos.webp";
+import guinchoVanLonga from "@/public/images/operacoes/guincho-van-longa.webp";
 
 /**
- * Conteúdo da prévia local, ainda sem aprovação editorial.
- * O build padrão de produção é bloqueado até D01–D08 serem resolvidas.
+ * TRAVA DE PUBLICAÇÃO — MANTIDA DELIBERADAMENTE.
+ *
+ * Em 01/10/2026 o responsável fechou D01, D05, D07 e D08 e confirmou o domínio
+ * (D06). A trava **continua ativa de propósito**: falta o teste técnico dos
+ * links de contato em aparelho real (D02) e o inventário/mapa de redirects das
+ * URLs antigas (D06). A mensagem abaixo foi preservada palavra por palavra
+ * porque é citada como saída esperada em `docs/07-deploy-coolify.md` e nos
+ * registros de validação; ela sai junto com a trava, não antes.
+ *
  * SITE_PREVIEW_BUILD=1 permite somente artefato de prévia local/protegida.
+ * Remover esta trava é a Fase 3 do plano de liberação e exige autorização
+ * explícita — não é consequência automática das aprovações já registradas.
  */
 if (process.env.NODE_ENV === "production" && process.env.SITE_PREVIEW_BUILD !== "1") {
   throw new Error(
     "Publicação bloqueada: fotos, limites operacionais, trechos, domínio e política ainda dependem de aprovação (D01–D08).",
   );
 }
+
+/** Domínio definitivo, decidido pelo responsável em 01/10/2026 (D06). */
+export const siteUrl = "https://meguinchos.com.br";
+
+/**
+ * Único ponto de liberação de indexação do projeto.
+ *
+ * `false` mantém `noindex, nofollow` em todas as rotas e um `robots.txt`
+ * fechado, mesmo com toda a camada de SEO já montada. Virar `true` é a Fase 3
+ * do plano de liberação, feita em commit isolado e reversível, junto com a
+ * remoção da trava acima.
+ *
+ * Consumido por `metadataDaRota` (todas as rotas) e por `app/robots.ts`, para
+ * que metadata e robots nunca divirjam.
+ */
+export const INDEXACAO_LIBERADA = false;
 
 export const siteContent = {
   brandName: "ME Guinchos",
@@ -28,8 +59,6 @@ export const siteContent = {
     whatsappLabel: "Consultar pelo WhatsApp",
     phoneLabel: "Ligar agora",
   },
-  previewNotice:
-    "Prévia local. Fotos, limites operacionais, trechos atendidos e dados legais ainda exigem validação. Não publicar.",
 } as const;
 
 /**
@@ -65,33 +94,37 @@ export const legalContent = {
 /**
  * Seleção manual de fotos do hero, conforme `docs/04-direcao-visual.md`: a troca
  * de foto não altera o H1 nem esconde os dois contatos, e não há avanço
- * automático. As imagens são candidatas — conferir acervo, descrição factual,
- * titularidade e autorização (D07) antes de qualquer página pública.
+ * automático.
+ *
+ * D07 encerrada em 01/10/2026: as fotos pertencem ao Manoel / ME Guinchos e o
+ * proprietário confirmou o uso delas no novo site. As descrições factuais e o
+ * inventário ficam em `public/images/operacoes/README.md`. Nada além dessa
+ * confirmação foi declarado sobre autoria ou licenciamento.
  */
 export const heroFotos = [
   {
-    id: "esportivo",
-    image: galleryEsportivo,
-    alt: "Carro esportivo laranja carregado sobre a plataforma azul do guincho ME, em frente a um galpão de tijolo.",
-    caption: "Carro de passeio em plataforma",
+    id: "tres-veiculos",
+    image: guinchoTresVeiculos,
+    alt: "Três carros brancos transportados pelo caminhão-plataforma da ME Guinchos em via urbana.",
+    caption: "Guincho para 3 veículos",
   },
   {
-    id: "carro-branco",
-    image: galleryCarroBranco,
-    alt: "Carro branco sobre a plataforma de guincho azul e branco da ME em área aberta.",
-    caption: "Transporte de carro",
+    id: "carro-luxo",
+    image: guinchoCarroLuxo,
+    alt: "Carro esportivo preto transportado sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para carro de luxo",
   },
   {
-    id: "motos",
-    image: galleryMotos,
-    alt: "Três motos e um carro escuro acomodados juntos sobre a plataforma do guincho ME.",
-    caption: "Motos e carro na mesma viagem",
+    id: "van-longa",
+    image: guinchoVanLonga,
+    alt: "Van branca de carroceria longa transportada sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para van longa",
   },
   {
-    id: "caminhonete",
-    image: galleryCaminhonete,
-    alt: "Caminhonete preta sobre a plataforma do caminhão guincho azul e branco da ME.",
-    caption: "Caminhonete em plataforma",
+    id: "barco",
+    image: guinchoBarco,
+    alt: "Embarcação branca com motor de popa transportada sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para barco · Guincho para embarcações",
   },
 ] as const;
 
@@ -105,16 +138,23 @@ export const empilhadeiraContent = {
   title: "A empilhadeira também é nossa.",
   description:
     "Além do guincho, a ME carrega e transporta empilhadeiras em plataforma e faz movimentação de cargas com empilhadeira própria. Informe o equipamento, a carga e o local para avaliar as condições.",
-  image: galleryEmpilhadeira,
-  alt: "Empilhadeira amarela amarrada sobre a plataforma do guincho ME em atendimento noturno.",
-  caption: "Empilhadeira carregada em plataforma, atendimento noturno",
+  image: guinchoEmpilhadeiras,
+  alt: "Duas empilhadeiras alaranjadas transportadas sobre a plataforma azul da ME Guinchos.",
+  caption: "Guincho para empilhadeira",
   etiqueta: "Registro da frota ME",
   ctaLabel: "Consultar transporte de empilhadeira",
 } as const;
 
 /**
- * `preview` significa apenas que o card pode aparecer no protótipo local.
- * Limites, prova e texto final de cada oferta ainda precisam de revisão editorial.
+ * D01 e D05 resolvidas editorialmente em 01/10/2026: a redação permanece
+ * **consultiva por decisão**, sem tonelagem, peso máximo, modelos suportados
+ * nem restrição operacional. As condições de cada chamado são confirmadas no
+ * atendimento. Acrescentar limite técnico aqui reabre D01/D05 e exige nova
+ * confirmação do responsável.
+ *
+ * O campo `status` ficou sem leitor depois dessa decisão — nenhuma oferta é
+ * marcada como pendente na interface, porque nenhuma é apresentada como
+ * fechada. Mantido apenas como registro da origem do cartão.
  */
 export const serviceCards = [
   {
@@ -164,6 +204,15 @@ export const serviceCards = [
   },
 ] as const;
 
+/**
+ * Pix, cartões e dinheiro confirmados (D08). As artes de pagamento foram
+ * autorizadas a permanecer no projeto pelo responsável em 01/10/2026 — a
+ * ressalva de origem levantada na auditoria de readiness foi decidida, não
+ * esquecida, e deixou de ser bloqueador de publicação.
+ *
+ * Condições de pagamento não informadas continuam fora: o texto remete ao
+ * fechamento do chamado em vez de prometer parcelamento ou modalidade.
+ */
 export const paymentContent = {
   title: "Formas de pagamento",
   description:
@@ -213,53 +262,144 @@ export const coverageContent = {
   ],
 } as const;
 
-/** Fotos candidatas do acervo ME, com proveniência em public/images/preview/README.md. */
+/** Fotos do acervo ME autorizadas (D07); proveniência em public/images/operacoes/README.md. */
 export const galleryItems = [
   {
-    id: "esportivo",
-    image: galleryEsportivo,
-    alt: "Carro esportivo laranja sobre plataforma azul e branca de guincho.",
-    caption: "Carro sobre plataforma",
+    id: "barco",
+    image: guinchoBarco,
+    alt: "Embarcação branca com motor de popa transportada sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para barco · Guincho para embarcações",
   },
   {
-    id: "carro-branco",
-    image: galleryCarroBranco,
-    alt: "Carro branco sobre plataforma de guincho azul e branco em área aberta.",
-    caption: "Transporte de carro",
+    id: "caminhao-pesado",
+    image: guinchoCaminhaoPesado,
+    alt: "Cavalo mecânico branco transportado sobre um caminhão-plataforma cinza.",
+    caption: "Guincho para caminhão pesado",
   },
   {
-    id: "caminhonete",
-    image: galleryCaminhonete,
-    alt: "Caminhonete preta sobre plataforma de caminhão guincho azul e branco.",
-    caption: "Caminhonete em plataforma",
+    id: "maquina-retroescavadeira",
+    image: guinchoMaquinaRetroescavadeira,
+    alt: "Escavadeira amarela sobre caminhão-plataforma verde em via molhada.",
+    caption: "Guincho para máquinas · Guincho para retroescavadeira",
   },
   {
-    id: "van",
-    image: galleryVan,
-    alt: "Van branca sobre plataforma de caminhão guincho em via urbana.",
-    caption: "Van em plataforma",
+    id: "carro-luxo",
+    image: guinchoCarroLuxo,
+    alt: "Carro esportivo preto transportado sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para carro de luxo",
   },
   {
-    id: "motos",
-    image: galleryMotos,
-    alt: "Três motos e um carro escuro sobre a plataforma de um caminhão guincho.",
-    caption: "Motos e carro em plataforma",
+    id: "empilhadeiras",
+    image: guinchoEmpilhadeiras,
+    alt: "Duas empilhadeiras alaranjadas transportadas sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para empilhadeira",
   },
   {
-    id: "empilhadeira",
-    image: galleryEmpilhadeira,
-    alt: "Empilhadeira amarela sobre plataforma de guincho azul e branco à noite.",
-    caption: "Empilhadeira em transporte",
+    id: "van-longa",
+    image: guinchoVanLonga,
+    alt: "Van branca de carroceria longa transportada sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para van longa",
+  },
+  {
+    id: "empilhadeira-7-ton",
+    image: guinchoEmpilhadeira7Ton,
+    alt: "Empilhadeira verde transportada sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para empilhadeira de 7 toneladas",
+  },
+  {
+    id: "bobcat",
+    image: guinchoBobcat,
+    alt: "Minicarregadeira amarela transportada sobre a plataforma azul da ME Guinchos.",
+    caption: "Guincho para Bobcat",
+  },
+  {
+    id: "retroescavadeira",
+    image: guinchoRetroescavadeira,
+    alt: "Retroescavadeira amarela transportada sobre caminhão-plataforma branco e vermelho.",
+    caption: "Guincho para retroescavadeira",
+  },
+  {
+    id: "plataforma-elevatoria",
+    image: guinchoPlataformaElevatoria,
+    alt: "Plataforma elevatória articulada azul transportada sobre a plataforma da ME Guinchos.",
+    caption: "Guincho para plataforma elevatória",
+  },
+  {
+    id: "plataforma-grande",
+    image: guinchoPlataformaGrande,
+    alt: "Caminhão baú branco transportado sobre um caminhão-plataforma branco.",
+    caption: "Guincho plataforma grande",
+  },
+  {
+    id: "tres-veiculos",
+    image: guinchoTresVeiculos,
+    alt: "Três carros brancos transportados pelo caminhão-plataforma da ME Guinchos em via urbana.",
+    caption: "Guincho para 3 veículos",
   },
 ] as const;
 
-export const previewMetadata: Metadata = {
-  title: "Prévia local | ME Guinchos — guincho para veículos leves",
+/**
+ * Imagem de compartilhamento. Usa foto do acervo da ME autorizada pelo
+ * proprietário em 01/10/2026 (D07). A versão 1200×630 foi gerada a partir do
+ * arquivo atualizado enviado pelo Manoel na mesma data e não depende da cópia
+ * de 600×400 px usada na prévia anterior.
+ */
+export const openGraphImage = {
+  url: "/images/operacoes/guincho-caminhao-pesado-og.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Cavalo mecânico branco transportado sobre um caminhão-plataforma.",
+} as const;
+
+/**
+ * Metadata de produção por rota: `metadataBase`, canonical absoluta, Open Graph
+ * e Twitter já definitivos, com `robots` derivado de `INDEXACAO_LIBERADA`.
+ *
+ * Enquanto o sinalizador é `false`, cada rota continua `noindex, nofollow`
+ * mesmo com título, canonical e OG finais — é o que permite validar a camada de
+ * descoberta antes de abrir a indexação.
+ *
+ * `path` é o caminho canônico com barra inicial; `"/"` para a home.
+ */
+export function metadataDaRota({
+  path,
+  title,
+  description,
+}: {
+  path: string;
+  title: string;
+  description: string;
+}): Metadata {
+  return {
+    metadataBase: new URL(siteUrl),
+    title,
+    description,
+    alternates: { canonical: path },
+    robots: INDEXACAO_LIBERADA
+      ? { index: true, follow: true, googleBot: { index: true, follow: true } }
+      : { index: false, follow: false, googleBot: { index: false, follow: false } },
+    openGraph: {
+      type: "website",
+      siteName: siteContent.brandName,
+      locale: "pt_BR",
+      url: path,
+      title,
+      description,
+      images: [openGraphImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [openGraphImage.url],
+    },
+  };
+}
+
+/** Metadata da home. Título e descrição definitivos, sem rótulo de prévia. */
+export const homeMetadata: Metadata = metadataDaRota({
+  path: "/",
+  title: "ME Guinchos — guincho para carros, motos, vans e empilhadeiras em SP",
   description:
-    "Prévia local da ME Guinchos. Consulte guincho e serviços com empilhadeira pelo telefone ou WhatsApp.",
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: { index: false, follow: false },
-  },
-};
+    "Guincho plataforma para carros, motos, vans e utilitários na zona oeste de São Paulo, com empilhadeira própria para transporte e movimentação de cargas. Todos os dias, das 7h às 22h.",
+});

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Pictograma } from "@/components/Pictograma";
 import { siteContent } from "@/content/site";
-import { previewContactLinks } from "@/lib/contact";
+import { siteContactLinks } from "@/lib/contact";
 
 const atalhos = [
   { href: "/#servicos", rotulo: "Serviços" },
@@ -40,7 +40,7 @@ export function SiteHeader() {
 
         <a
           className="acao acao--whatsapp acao--compacta"
-          href={previewContactLinks.whatsappHref}
+          href={siteContactLinks.whatsappHref}
         >
           <Pictograma nome="whatsapp" tamanho={20} />
           <span className="acao__rotulo">Chamar no WhatsApp</span>

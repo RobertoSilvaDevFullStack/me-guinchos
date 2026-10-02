@@ -14,14 +14,14 @@
 
 | Trabalho | Pode começar com pendências? | Bloqueio de publicação |
 | --- | --- | --- |
-| Protótipo da home e design | Sim, com placeholders | Número e horário foram confirmados; faltam teste real de contato, limites da área, fotos/copy aprovados e dados legais |
-| Slides e fotos candidatas na prévia local | Sim, sem avanço automático e com ofertas pendentes identificadas | D01/D07, descrição e arquivos adequados aprovados |
-| Rotas de carros/motos/vans | Sim | Serviço e capacidade reais confirmados |
+| Protótipo da home e design | Sim, com placeholders | Faltam teste real de contato, precisão da área e gate final; telefone, horário, mídia e dados legais estão confirmados |
+| Slides e fotos na prévia local | Sim, sem avanço automático | Titularidade e uso aprovados; manter descrição factual e validar os arquivos exibidos |
+| Rotas de carros/motos/vans | Sim | Copy consultiva aprovada; rota própria ainda exige conteúdo e prova específicos |
 | Transporte de empilhadeiras | Sim, como rascunho | Confirmação operacional atual |
-| Operação com empilhadeira | Apenas conceito/rascunho | Aquisição, operador, capacidade, área, horário e imagens aprovados |
-| SEO local/campanhas | Pesquisa pode começar | Geografia, domínio, oferta e conta aprovados |
+| Operação com empilhadeira | Sim, com copy consultiva | Página/anúncio próprio exige prova da operação e conteúdo específico; não publicar limite técnico não confirmado |
+| SEO local/campanhas | Pesquisa pode começar | Geografia e conta aprovadas; domínio e oferta consultiva já confirmados |
 | Páginas por cidade/rodovia para Ads | Apenas backlog e rascunho protegido | D03, conteúdo local útil, URL final, oferta e D09/D10 aprovados |
-| Seção de formas de pagamento | Sim; Pix, cartões e dinheiro confirmados em 28/09 | Condições não informadas e arte própria da ME; dados legais D08 permanecem pendentes |
+| Seção de formas de pagamento | Sim; Pix, cartões, dinheiro e artes atuais autorizados | Condições não informadas continuam fora; dados legais D08 estão confirmados |
 | Analytics/Ads | Contrato de eventos pode começar | IDs, contas, consentimento e política validados |
 
 ## Responsabilidades

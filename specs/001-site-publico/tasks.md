@@ -4,7 +4,7 @@ Marcar como concluída somente com evidência no relatório de validação. `P` 
 
 | ID | P | Dono | Entrega e vínculo |
 | --- | --- | --- | --- |
-| T01 | P0 | Produto/cliente | Registrar confirmações de telefone, horário, cobertura aproximada, serviços e pagamentos; resolver teste real de contato, limites operacionais/geográficos, domínio e dados legais (RF02, RF03, RF05, RF07, RF12, RF13). |
+| T01 | P0 | Produto/cliente | Registrar confirmações de telefone, horário, cobertura aproximada, serviços, mídia, pagamentos, domínio e dados legais; concluir teste real de contato e precisão geográfica (RF02, RF03, RF05, RF07, RF12, RF13). |
 | T02 | P0 | SEO | Redigir copy e matriz anúncio → rota → H1 → CTA, sem afirmação não aprovada (RF01, RF04, RF09, RF13). |
 | T03 | P0 | Front | Criar base Next/TS/Tailwind e configuração tipada sem backend (RF01–RF05, RNF03). |
 | T04 | P0 | Front | Implementar home, CTAs sem JS, barra mobile com safe area (RF01–RF03, RNF01). |
@@ -19,6 +19,7 @@ Marcar como concluída somente com evidência no relatório de validação. `P` 
 | T13 | P1 | Front + SEO | Seção de pagamento em prévia e publicação apenas de modalidades aprovadas (RF12). |
 | T14 | P1 | SEO + Front | Backlog e páginas de destino por serviço/cidade/rodovia com cobertura comprovada, conteúdo próprio, navegação/rodapé e teste da URL final para Ads (RF09, RF13). |
 | T15 | P1 | Front + SEO | Aplicar as confirmações de 28/09 à prévia: telefone, horário 7h–22h todos os dias, cobertura indicativa, duas ofertas de empilhadeira, Pix/cartões/dinheiro e galeria curta da ME; revisar a marca candidata sem copiá-la automaticamente para produção (RF02–RF07, RF11–RF13). |
+| T16 | P1 | Front | Substituir a fotografia operacional pelas 12 imagens enviadas em 01/10, vincular as legendas do Manoel, gerar variantes web/OG, registrar proveniência e validar recortes responsivos sem confundir transporte com operação de empilhadeira (RF05, RF06, RF11, RNF01–RNF03). |
 
 A implementação da prévia foi autorizada nos pedidos de 27 e 28/09/2026. Esta lista não é autorização de deploy.
 
@@ -33,3 +34,14 @@ A implementação da prévia foi autorizada nos pedidos de 27 e 28/09/2026. Esta
 
 - **T01 parcial:** número final 8799, janela 7h–22h de domingo a domingo para todos os serviços, raio aproximado de 20 km com localidades citadas, duas ofertas de empilhadeira e Pix/cartões/dinheiro confirmados pelo usuário. Persistem teste em smartphone, setores/trechos, limites técnicos, fotos/originais, domínio e dados legais.
 - **T15:** terceira fatia de prévia em execução. A confirmação comercial atualiza a copy, mas não libera produção nem campanhas por cidade/rodovia.
+
+## Atualização em 01/10/2026
+
+- **T01 parcial:** contato definitivo corrigido para `+55 11 93029-9233`; D01/D05 resolvidas por copy consultiva; logo, fotos, artes de pagamento, dados legais e domínio canônico confirmados. Persistem teste em smartphone, setores/trechos e inventário completo das URLs antigas.
+- **T06 implementada, validação pendente:** metadata, canonical, Open Graph/Twitter, JSON-LD, `robots.txt`, `sitemap.xml` condicionado à indexação e `llms.txt` estão preparados. `INDEXACAO_LIBERADA = false` permanece obrigatório.
+- **T08 parcial:** redirects conhecidos foram mapeados para `/#empilhadeira` e `/#registros`, além de `www` → non-www. URLs antigas sem equivalente comprovado continuam pendentes de inventário.
+- **T15 implementada, validação final pendente:** conteúdo ativo usa o contato definitivo e as decisões aprovadas. O build de produção e a indexação continuam bloqueados.
+
+## Atualização em 02/10/2026
+
+- **T16 implementada e validada na prévia:** as 12 fotografias e legendas atuais substituem o acervo operacional anterior; o manifesto preserva a redação original e explicita que “7 toneladas” pertence ao registro, não à capacidade geral. Lint, tipos, build de prévia e os viewports 360/390/768/1280 passaram; evidência em [validation-2026-10-02-imagens-contato.md](validation-2026-10-02-imagens-contato.md). Teste com JavaScript desativado, smartphone real e revisão final de identificadores permanecem no gate geral.

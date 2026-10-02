@@ -5,15 +5,17 @@ import { Pictograma } from "@/components/Pictograma";
 import { Retrorreflexao } from "@/components/Retrorreflexao";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { coverageContent } from "@/content/site";
-import { previewContactLinks } from "@/lib/contact";
+import { coverageContent, metadataDaRota } from "@/content/site";
+import { siteContactLinks } from "@/lib/contact";
 
-export const metadata: Metadata = {
-  title: "Áreas para consulta | Prévia ME Guinchos",
+// Canonical, Open Graph e título definitivos; `robots` continua `noindex`
+// enquanto `INDEXACAO_LIBERADA` for `false` em `content/site.ts`.
+export const metadata: Metadata = metadataDaRota({
+  path: "/areas-de-atendimento",
+  title: "Áreas de atendimento | ME Guinchos",
   description:
-    "Regiões indicadas em mapa para consulta de atendimento da ME Guinchos.",
-  robots: { index: false, follow: false },
-};
+    "Regiões de referência para consulta de atendimento da ME Guinchos, a partir da zona oeste de São Paulo. Confirme o endereço e o trecho antes de fechar o serviço.",
+});
 
 export default function AreasDeAtendimentoPage() {
   return (
@@ -50,14 +52,14 @@ export default function AreasDeAtendimentoPage() {
           </p>
 
           <div className="areas__acoes" role="group" aria-label="Formas de contato">
-            <a className="acao acao--whatsapp" href={previewContactLinks.whatsappHref}>
+            <a className="acao acao--whatsapp" href={siteContactLinks.whatsappHref}>
               <Pictograma nome="whatsapp" tamanho={22} />
               <span>Consultar pelo WhatsApp</span>
               <Pictograma nome="seta" tamanho={13} className="acao__seta" />
             </a>
-            <a className="acao acao--ligar" href={previewContactLinks.phoneHref}>
+            <a className="acao acao--ligar" href={siteContactLinks.phoneHref}>
               <Pictograma nome="telefone" tamanho={20} />
-              <span>Ligar {previewContactLinks.phoneDisplay}</span>
+              <span>Ligar {siteContactLinks.phoneDisplay}</span>
               <Pictograma nome="seta" tamanho={13} className="acao__seta" />
             </a>
           </div>

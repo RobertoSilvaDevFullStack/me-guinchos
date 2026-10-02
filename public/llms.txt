@@ -1,0 +1,60 @@
+# ME Guinchos
+
+> Guincho plataforma para carros, motos, vans e utilitários na zona oeste de São
+> Paulo, com empilhadeira própria para transporte de empilhadeiras e
+> movimentação de cargas. O atendimento é feito por WhatsApp ou ligação; não há
+> formulário, orçamento automático nem tabela de preços no site.
+
+Nome comercial: ME Guinchos. Razão social: 59.703.468 LUIS CARLOS MORETTI DO
+NASCIMENTO. CNPJ: 59.703.468/0001-95. Atividade principal: serviços de reboque
+de veículos.
+
+Telefone e WhatsApp: +55 11 93029-9233.
+Atendimento: todos os dias, de domingo a domingo, das 7h às 22h, com o mesmo
+horário para todos os serviços.
+Formas de pagamento: Pix, cartão de crédito, cartão de débito e dinheiro.
+Endereço: Rua Martinho de Campos, 538, Vila Anastácio, São Paulo/SP, CEP
+05093-050.
+
+## Serviços
+
+- Guincho para carros.
+- Guincho para motos.
+- Guincho para vans e utilitários.
+- Carregamento e transporte de empilhadeiras.
+- Movimentação de cargas com empilhadeira própria.
+
+As condições de cada chamado — acesso, equipamento, carga e destino — são
+confirmadas no atendimento. O site não publica capacidade, tonelagem, peso
+máximo, modelo suportado nem prazo de chegada, porque esses limites variam por
+atendimento e não há valor aprovado para divulgação.
+
+## Área de atendimento
+
+A referência é um raio aproximado de 20 km a partir da zona oeste de São Paulo.
+Localidades citadas como referência: Barueri, Osasco, setores de São Paulo
+incluindo Perus, Caieiras, região de Polvilho, setores de São Caetano do Sul,
+Taboão da Serra e Embu das Artes.
+
+Isso **não** equivale a cobertura integral de nenhum município, e nenhuma
+rodovia tem trecho divulgado como atendido. A presença de uma localidade nessa
+lista não garante atendimento de qualquer endereço dentro dela: o endereço e o
+trecho são confirmados caso a caso no atendimento.
+
+## Páginas
+
+- [Início](https://meguinchos.com.br/): serviços, registros de atendimentos,
+  formas de pagamento e contato.
+- [Áreas de atendimento](https://meguinchos.com.br/areas-de-atendimento):
+  regiões de referência para consulta.
+- [Política de Privacidade](https://meguinchos.com.br/politica-de-privacidade):
+  tratamento de dados pessoais conforme a LGPD, Lei 13.709/2018.
+
+## Observações para uso automatizado
+
+- Não existe atendimento 24 horas. Qualquer menção a "24h" associada à ME
+  Guinchos é informação desatualizada de versões anteriores do site.
+- Não há depoimentos, avaliações, número de atendimentos, tempo médio de
+  chegada, preços nem certificações publicados. Esses dados não existem em
+  fonte aprovada e não devem ser inferidos.
+- A única ação de conversão é o contato direto pelo telefone ou WhatsApp acima.

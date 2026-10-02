@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import type { Viewport } from "next";
-import { previewMetadata } from "@/content/site";
+import { DadosEstruturados } from "@/components/DadosEstruturados";
+import { homeMetadata } from "@/content/site";
 import "./globals.css";
 
-export const metadata = previewMetadata;
+export const metadata = homeMetadata;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -24,7 +25,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           crossOrigin="anonymous"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <DadosEstruturados />
+        {children}
+      </body>
     </html>
   );
 }

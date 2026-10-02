@@ -54,7 +54,7 @@ empilhadeira própria.
 
 Pagamento confirmado: Pix, cartões de crédito e débito, dinheiro.
 
-Contato confirmado: `+55 11 95199-8799` (WhatsApp e ligação). Teste em aparelho real
+Contato confirmado: `+55 11 93029-9233` (WhatsApp e ligação). Teste em aparelho real
 ainda pendente.
 
 Dados legais confirmados em 29/09/2026, do Comprovante de Inscrição e Situação
@@ -66,11 +66,13 @@ Guinchos" permanece como nome comercial na interface; a razão social só aparec
 identificação jurídica. Isso resolve a parte legal da D08. Atenção: o CEP oficial é
 `05093-050`, e não `05093-040` como consta em `docs/00-contexto-fontes.md`.
 
-Pendências que o design não pode resolver por conta própria (D01–D10 em
-`docs/00-contexto-fontes.md`): capacidade, operador e limites da empilhadeira; pesos e
-restrições por tipo de veículo; setores exatos e trechos de rodovia; domínio final;
-contas de Ads/Analytics. Enquanto abertas, o build de produção fica bloqueado e nada
-disso vira afirmação em página, metadado ou anúncio — usar `[PREENCHER]`.
+Pendências que o design não pode resolver por conta própria (`docs/00-contexto-fontes.md`):
+teste real do contato, setores exatos e trechos de rodovia e inventário completo das
+URLs antigas. Capacidade, operador, peso, modelos e restrições técnicas não são
+inferidos: D01/D05 foram resolvidas para o site atual pela manutenção de linguagem
+consultiva. Contas de Ads/Analytics ficam para antes da ativação de medição/campanhas e
+não bloqueiam o site institucional sem scripts. O build de produção permanece
+bloqueado até autorização explícita.
 
 Stack existente: Next.js App Router + TypeScript + CSS próprio em `app/globals.css`
 (não é Tailwind utilitário, apesar do `@import "tailwindcss"`). Sem banco, sem API.
@@ -79,10 +81,9 @@ Stack existente: Next.js App Router + TypeScript + CSS próprio em `app/globals.
 
 - Nome: **ME Guinchos**.
 - Logo `public/images/preview/logo-me-guinchos-sem-fundo.png` (caminhão + empilhadeira,
-  letras ME em laranja): **é estudo de marca, não marca aprovada**. Decisão do usuário
-  em 29/09/2026 — a identidade se apoia em azul e grafite; laranja só como sinalização
-  operacional discreta, nunca como cor dominante. Cores em tokens centralizados para
-  que a decisão seja reversível sem refazer o site.
+  letras ME em laranja): **aprovada como definitiva em 01/10/2026**. A identidade se
+  apoia em azul e grafite; laranja segue como sinalização operacional discreta, nunca
+  como cor dominante.
 - Verde é reservado à ação de WhatsApp. Não usar verde decorativo.
 - O JHC Guincho Pesado é **anti-referência estética** (preto quase puro + laranja). Sua
   organização de jornada pode inspirar; sua aparência, textos, imagens e escopo pesado,
@@ -96,7 +97,7 @@ Stack existente: Next.js App Router + TypeScript + CSS próprio em `app/globals.
 
 ## Evidence on Hand
 
-Reais e usáveis em prévia (direitos comerciais ainda pendentes em D07):
+Reais e autorizados pelo Manoel/ME Guinchos em 01/10/2026 (D07):
 
 - `public/images/preview/guincho-carro-esportivo.jpg` — esportivo laranja em plataforma
   azul, galpão de tijolo ao fundo, luz de meio-dia.

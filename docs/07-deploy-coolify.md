@@ -1,7 +1,8 @@
 # 07 — Deploy no Coolify
 
-Preparação técnica concluída em 29/09/2026. **Nada foi publicado.** O bloqueio de
-publicação continua ativo e a indexação continua desligada.
+Preparação técnica atualizada em 01/10/2026. **Nada foi publicado por este
+handoff.** O bloqueio de publicação continua ativo e a indexação continua
+desligada.
 
 ## Configuração no Coolify
 
@@ -14,7 +15,7 @@ publicação continua ativo e a indexação continua desligada.
 | Comando de start | definido na imagem: `node server.js` (não sobrescrever) |
 | Node | **24.21.0** na imagem; mínimo suportado pelo Next 16 é 20.9.0 |
 | Healthcheck | já embutido no Dockerfile: `GET /` a cada 30s, 25s de carência |
-| Domínio | a definir — depende da D06 (`meguinchos.com.br` ou outro) |
+| Domínio | `meguinchos.com.br`, canônico sem `www`; DNS, HTTPS, Coolify e Traefik validados externamente |
 | SSL | gerenciado pelo Coolify; o projeto não traz Traefik nem Nginx |
 
 O container escuta em `0.0.0.0:3000` via as variáveis `HOSTNAME` e `PORT` já
@@ -62,24 +63,30 @@ docker run --rm -p 3000:3000 me-guinchos:preview
 ## Bloqueios ativos
 
 ### 1. Bloqueio de build de produção
-`content/site.ts`, linha 14. Lança erro quando `NODE_ENV=production` e
+`content/site.ts`. Lança erro quando `NODE_ENV=production` e
 `SITE_PREVIEW_BUILD` ≠ `"1"`. **Verificado:** `npm run build` sai com código 1 e a
 mensagem "Publicação bloqueada: fotos, limites operacionais, trechos, domínio e
 política ainda dependem de aprovação (D01–D08)". Precisa ser removido para publicar,
 depois que as pendências caírem.
 
-### 2. `noindex` em todas as rotas
-Três pontos, todos com `robots: { index: false, follow: false }`:
+A mensagem cita o gate histórico D01–D08 e foi preservada deliberadamente porque
+há registros de validação que dependem do texto exato. O estado atualizado das
+decisões está em `docs/00-contexto-fontes.md`; não interpretar a mensagem isolada
+como inventário atual de pendências.
 
-- `content/site.ts` → `previewMetadata` (cobre a home via `app/layout.tsx`)
-- `app/areas-de-atendimento/page.tsx`
-- `app/politica-de-privacidade/page.tsx`
+### 2. Indexação centralmente bloqueada
 
-Devem permanecer até autorização explícita.
+`content/site.ts` mantém `INDEXACAO_LIBERADA = false`. `metadataDaRota` aplica
+`noindex, nofollow` à home, áreas e política; `app/robots.ts` responde com
+`Disallow: /` e sem referência ao sitemap. Devem permanecer assim até autorização
+explícita.
 
-### 3. Ausência de `robots.txt`, `sitemap.xml` e `llms.txt`
-Não existem. Enquanto o `noindex` estiver ativo, a ausência é coerente. O gate de
-lançamento do projeto exige os três antes de qualquer página pública.
+### 3. Arquivos de descoberta preparados, sem liberação
+
+`app/robots.ts`, `app/sitemap.ts` e `public/llms.txt` existem. Enquanto
+`INDEXACAO_LIBERADA = false`, o sitemap não anuncia nenhuma URL. O `llms.txt` usa
+somente fatos confirmados, mas sua presença não substitui autorização para deploy
+ou indexação.
 
 ## Limitações da validação feita nesta máquina
 
@@ -105,13 +112,14 @@ RUN apk add --no-cache libc6-compat
 
 ## Checklist para quando o deploy for autorizado
 
-1. Resolver D01–D10 (`docs/00-contexto-fontes.md`), em especial D06 (domínio) e D07
-   (direitos de uso das fotos).
-2. Remover o bloqueio de `content/site.ts` e apagar o script `build:preview` e o
-   `ARG SITE_PREVIEW_BUILD` do Dockerfile, que deixam de ter função.
-3. Remover o `noindex` dos três pontos listados acima.
-4. Criar `robots.txt`, `sitemap.xml` e `llms.txt`; adicionar `metadataBase`,
-   canonical e Open Graph.
+1. Concluir o teste real de WhatsApp/ligação (D02), a precisão necessária de
+   setores/trechos (D03) e o inventário das URLs antigas (D06).
+2. Obter autorização explícita para publicar; só então remover a trava de produção
+   e decidir, em alteração isolada, o destino de `SITE_PREVIEW_BUILD`.
+3. Alterar `INDEXACAO_LIBERADA` para `true` apenas na liberação aprovada e conferir
+   em conjunto metadata, `robots.txt` e sitemap.
+4. Validar `robots.txt`, `sitemap.xml`, `llms.txt`, `metadataBase`, canonical,
+   Open Graph/Twitter e JSON-LD no artefato que será publicado.
 5. Resolver os três acabamentos visuais pendentes da auditoria: anel de foco com
    contraste insuficiente em fundo claro, cartões do miolo, enquadramento da foto da
    empilhadeira.
@@ -119,7 +127,8 @@ RUN apk add --no-cache libc6-compat
    atualizar a Política de Privacidade — hoje ela afirma que o site não usa cookies
    nem analytics, o que é verdade e deixa de ser no momento em que algo for
    adicionado.
-7. Testar WhatsApp e ligação em aparelho real (D02).
+7. Confirmar os redirects 301 conhecidos, `www` → non-www e a ausência de cadeia;
+   listar separadamente toda URL antiga ainda sem equivalente comprovado.
 8. Rodar o primeiro `docker build` sem `--build-arg` num ambiente com rede limpa e
    confirmar que a imagem sobe e responde.
-9. Apontar o DNS e deixar o Coolify emitir o certificado.
+9. Verificar novamente o DNS/HTTPS já configurado depois do deploy autorizado.

@@ -5,17 +5,17 @@ import { Pictograma } from "@/components/Pictograma";
 import { Retrorreflexao } from "@/components/Retrorreflexao";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { legalContent } from "@/content/site";
-import { previewContactLinks } from "@/lib/contact";
+import { legalContent, metadataDaRota } from "@/content/site";
+import { siteContactLinks } from "@/lib/contact";
 
-export const metadata: Metadata = {
+// Canonical e Open Graph definitivos. O `robots` desta rota deixou de ser
+// escrito à mão: vem de `INDEXACAO_LIBERADA`, junto com todas as demais.
+export const metadata: Metadata = metadataDaRota({
+  path: "/politica-de-privacidade",
   title: "Política de Privacidade | ME Guinchos",
   description:
     "Política de Privacidade da ME Guinchos e informações sobre o tratamento de dados pessoais conforme a LGPD.",
-  // O projeto inteiro está sob bloqueio de publicação (D01–D10). Quando o
-  // bloqueio cair, esta rota passa a index/follow junto com as demais.
-  robots: { index: false, follow: false },
-};
+});
 
 /** Direitos do titular previstos nos arts. 17 a 22 da Lei 13.709/2018. */
 const direitosDoTitular = [
@@ -93,8 +93,8 @@ export default function PoliticaDePrivacidadePage() {
               <div>
                 <dt>Telefone e WhatsApp</dt>
                 <dd>
-                  <a href={previewContactLinks.phoneHref}>
-                    {previewContactLinks.phoneDisplay}
+                  <a href={siteContactLinks.phoneHref}>
+                    {siteContactLinks.phoneDisplay}
                   </a>
                 </dd>
               </div>
@@ -328,7 +328,7 @@ export default function PoliticaDePrivacidadePage() {
                   <Pictograma nome="telefone" tamanho={15} />
                   Telefone e WhatsApp
                 </dt>
-                <dd>{previewContactLinks.phoneDisplay}</dd>
+                <dd>{siteContactLinks.phoneDisplay}</dd>
               </div>
             </dl>
             <div className="politica__acoes">
@@ -341,9 +341,9 @@ export default function PoliticaDePrivacidadePage() {
                 <Pictograma nome="email" tamanho={20} />
                 <span>Enviar solicitação por e-mail</span>
               </a>
-              <a className="acao acao--ligar" href={previewContactLinks.phoneHref}>
+              <a className="acao acao--ligar" href={siteContactLinks.phoneHref}>
                 <Pictograma nome="telefone" tamanho={20} />
-                <span>Ligar {previewContactLinks.phoneDisplay}</span>
+                <span>Ligar {siteContactLinks.phoneDisplay}</span>
               </a>
             </div>
           </div>

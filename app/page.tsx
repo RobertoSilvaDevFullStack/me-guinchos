@@ -16,7 +16,7 @@ import {
   serviceCards,
   siteContent,
 } from "@/content/site";
-import { previewContactLinks } from "@/lib/contact";
+import { siteContactLinks } from "@/lib/contact";
 
 /** Pórtico de acesso rápido: a fileira de placas que o visitante passa por baixo. */
 const portico = [
@@ -27,7 +27,7 @@ const portico = [
 ] as const;
 
 function whatsappDoServico(titulo: string) {
-  const url = new URL(previewContactLinks.whatsappHref);
+  const url = new URL(siteContactLinks.whatsappHref);
   url.searchParams.set(
     "text",
     `Olá! Gostaria de consultar a disponibilidade de ${titulo.toLowerCase()}.`,
@@ -47,7 +47,7 @@ export default function HomePage() {
       <main id="conteudo">
         <HeroSinal
           fotos={heroFotos}
-          contactLinks={previewContactLinks}
+          contactLinks={siteContactLinks}
           titulo={siteContent.home.h1}
           descricao={siteContent.home.description}
           regiao={siteContent.home.regionLabel}
@@ -158,7 +158,7 @@ export default function HomePage() {
                 <span className="passo__numero">2</span>
                 <h3>Indique o local e o destino</h3>
                 <p>{coverageContent.summary}</p>
-                <Link className="passo__link" href="/areas-de-atendimento/">
+                <Link className="passo__link" href="/areas-de-atendimento">
                   <span>Ver as regiões citadas no mapa</span>
                   <Pictograma nome="seta" tamanho={12} />
                 </Link>
@@ -171,8 +171,8 @@ export default function HomePage() {
                   Atendemos <strong>domingo a domingo, das 7h às 22h</strong>,
                   no mesmo horário para guincho e para empilhadeira.
                 </p>
-                <a className="passo__link" href={previewContactLinks.phoneHref}>
-                  <span>Prefere ligar? {previewContactLinks.phoneDisplay}</span>
+                <a className="passo__link" href={siteContactLinks.phoneHref}>
+                  <span>Prefere ligar? {siteContactLinks.phoneDisplay}</span>
                   <Pictograma nome="seta" tamanho={12} />
                 </a>
               </li>
@@ -186,8 +186,8 @@ export default function HomePage() {
             <div className="titulo-secao">
               <h2 id="registros-titulo">Registros reais de veículos em plataforma.</h2>
               <p>
-                Operações documentadas com a frota ME: carros, caminhonetes,
-                vans, motos e empilhadeira.
+                Operações documentadas com a frota ME: carros, vans, embarcação,
+                caminhão, máquinas, plataformas e empilhadeiras.
               </p>
             </div>
 
@@ -265,14 +265,14 @@ export default function HomePage() {
             </p>
 
             <div className="fechamento__acoes">
-              <a className="acao acao--whatsapp" href={previewContactLinks.whatsappHref}>
+              <a className="acao acao--whatsapp" href={siteContactLinks.whatsappHref}>
                 <Pictograma nome="whatsapp" tamanho={22} />
                 <span>{siteContent.home.whatsappLabel}</span>
                 <Pictograma nome="seta" tamanho={13} className="acao__seta" />
               </a>
-              <a className="acao acao--ligar" href={previewContactLinks.phoneHref}>
+              <a className="acao acao--ligar" href={siteContactLinks.phoneHref}>
                 <Pictograma nome="telefone" tamanho={20} />
-                <span>Ligar {previewContactLinks.phoneDisplay}</span>
+                <span>Ligar {siteContactLinks.phoneDisplay}</span>
                 <Pictograma nome="seta" tamanho={13} className="acao__seta" />
               </a>
             </div>

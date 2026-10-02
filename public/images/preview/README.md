@@ -1,6 +1,8 @@
-# Imagens candidatas — somente prévia local/protegida
+# Acervo ME autorizado — arquivos anteriores da interface
 
-As cópias abaixo vieram da galeria pública da ME Guinchos coletada em 26/09/2026. Estado de todas: **preview-local/pendente-D07**. Elas não constituem autorização para produção, anúncio ou reutilização fora deste protótipo.
+As fotografias operacionais desta pasta foram substituídas em 02/10/2026 pelos arquivos mais atuais enviados pelo Manoel e inventariados em [`../operacoes/README.md`](../operacoes/README.md). Permanecem aqui como histórico de prévia; a logo e as artes de pagamento continuam em uso.
+
+As cópias abaixo vieram da galeria pública da ME Guinchos coletada em 26/09/2026. Em 01/10/2026, o responsável confirmou que pertencem ao Manoel/ME Guinchos e autorizou a reutilização no novo site, encerrando D07 para estes arquivos. A autorização não transforma as cópias 600×400 px em originais de alta resolução nem dispensa revisão de identificadores visíveis.
 
 | Arquivo de prévia | Arquivo de origem | Descrição factual / alt | Identificadores e limites |
 | --- | --- | --- | --- |
@@ -12,10 +14,10 @@ As cópias abaixo vieram da galeria pública da ME Guinchos coletada em 26/09/20
 | `galeria-motos.jpg` | `assets/referencia-site-atual/galeria/26_026.jpg` | Três motos e um carro escuro sobre a plataforma de um caminhão guincho. | Marcas e placas podem estar visíveis; revisar antes de uso público. Cópia 600×400 px. |
 | `galeria-empilhadeira-noturna.jpg` | `assets/referencia-site-atual/galeria/25_025.jpg` | Empilhadeira amarela sobre plataforma de guincho azul e branco à noite. | Prova apenas transporte de empilhadeira, não movimentação de cargas com equipamento próprio. Marcas/identificadores exigem revisão. Cópia 600×400 px. |
 
-Os textos alternativos usados na home reproduzem as descrições factuais da terceira coluna. Todas as cópias foram inspecionadas visualmente em 28/09/2026; a inspeção não confirma autoria, local, data, cliente ou autorização comercial.
+Os textos alternativos usados na home reproduzem as descrições factuais da terceira coluna. Todas as cópias foram inspecionadas visualmente em 28/09/2026; a autorização posterior confirma o uso, mas não autoriza inferir local, data, cliente ou detalhes da operação que a imagem não prove.
 
-`assets/referencia-site-atual/galeria/logo-me-guinchos.png` foi inspecionada como **candidata de marca, não utilizada na interface**. A arte combina caminhão, caminhonete e empilhadeira com o texto “Guincho com empilhadeira para veículos leves”. Sua origem, fidelidade dos equipamentos desenhados e mensagem comercial precisam de aprovação editorial antes de substituir a marca textual atual.
+`logo-me-guinchos-sem-fundo.png` é a versão usada no cabeçalho e foi aprovada como logo definitiva em 01/10/2026. `logo-me-guinchos.png` permanece como variante com fundo no mesmo acervo.
 
-`Cartoes.webp` e `pix-pagamento.webp` não foram copiados para esta pasta nem usados no site, pois vieram da apresentação de pagamentos da JHC. A seção de pagamento da ME usa composição própria em HTML/CSS.
+`cartoes-pagamento.webp` e `pix-pagamento.webp` estão nesta pasta e são usados dentro da composição própria da ME. O responsável autorizou a permanência das artes atuais em 01/10/2026. Essa autorização não se estende a outros materiais da JHC.
 
-Antes de qualquer publicação: Manoel confirma titularidade e autorização comercial, operação retratada e atualidade; revisar/ocultar placas, pessoas, marcas e identificadores quando cabível; obter arquivos originais; aprovar legenda e corte responsivo. A pasta inteira fica fora de publicação futura até esse gate editorial explícito.
+Antes da publicação: revisar/ocultar placas, pessoas, marcas e identificadores quando cabível; buscar arquivos originais para hero/OG; confirmar que legenda e corte responsivo continuam factuais. Titularidade e autorização de uso já estão confirmadas, mas a publicação permanece bloqueada pelos demais gates do projeto.
