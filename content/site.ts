@@ -372,6 +372,9 @@ export function metadataDaRota({
 }): Metadata {
   return {
     metadataBase: new URL(siteUrl),
+    verification: {
+      google: "lMdjHbskLXplkLzO-IQP-vEKVyJBvF-wal8m9GCGZno",
+    },
     title,
     description,
     alternates: { canonical: path },
