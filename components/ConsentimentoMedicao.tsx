@@ -144,20 +144,21 @@ export function ConsentimentoMedicao() {
 
       {avisoVisivel ? (
         <aside
-          aria-labelledby="consentimento-titulo"
+          aria-label="Aviso de privacidade e medição"
           className="consentimento"
           role="region"
         >
-          <div className="consentimento__tarja">
-            <h2 className="consentimento__titulo" id="consentimento-titulo">
-              Privacidade e medição
-            </h2>
+          <div
+            className={
+              painelAberto
+                ? "consentimento__tarja consentimento__tarja--expandida"
+                : "consentimento__tarja"
+            }
+          >
             <p className="consentimento__texto">
-              Este site usa cookies do <strong>Google Ads</strong> para medir o
-              resultado dos anúncios, e{" "}
-              <strong>nada é carregado antes da sua escolha</strong>. Recusar não
-              limita nada: WhatsApp, telefone e todo o conteúdo continuam
-              funcionando igual. Detalhes na{" "}
+              Cookies do <strong>Google Ads</strong> para medir o resultado dos
+              anúncios, carregados só depois da sua escolha. Recusar não limita
+              nada no site.{" "}
               <Link href="/politica-de-privacidade">Política de Privacidade</Link>.
             </p>
 
@@ -208,17 +209,17 @@ export function ConsentimentoMedicao() {
               </button>
               {painelAberto ? (
                 <button
-                  className="consentimento__botao consentimento__botao--largo"
+                  className="consentimento__botao"
                   onClick={() => decidir(escolhas)}
                   type="button"
                 >
-                  Salvar escolhas
+                  Salvar
                 </button>
               ) : (
                 <button
                   aria-controls="consentimento-painel"
                   aria-expanded={false}
-                  className="consentimento__botao consentimento__botao--largo"
+                  className="consentimento__botao"
                   onClick={() => setPainelAberto(true)}
                   type="button"
                 >
