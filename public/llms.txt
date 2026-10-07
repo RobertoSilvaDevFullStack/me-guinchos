@@ -43,11 +43,11 @@ trecho são confirmados caso a caso no atendimento.
 
 ## Páginas
 
-- [Início](https://meguinchos.com.br/): serviços, registros de atendimentos,
+- [Início](https://memorettiguinchos.com.br/): serviços, registros de atendimentos,
   formas de pagamento e contato.
-- [Áreas de atendimento](https://meguinchos.com.br/areas-de-atendimento):
+- [Áreas de atendimento](https://memorettiguinchos.com.br/areas-de-atendimento):
   regiões de referência para consulta.
-- [Política de Privacidade](https://meguinchos.com.br/politica-de-privacidade):
+- [Política de Privacidade](https://memorettiguinchos.com.br/politica-de-privacidade):
   tratamento de dados pessoais conforme a LGPD, Lei 13.709/2018.
 
 ## Observações para uso automatizado

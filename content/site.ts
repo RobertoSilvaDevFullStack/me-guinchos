@@ -18,7 +18,7 @@ import guinchoVanLonga from "@/public/images/operacoes/guincho-van-longa.webp";
  * Autorizado pelo responsável para auditoria e ativação completa de rastreamento,
  * conversões do Google Ads e páginas locais indexáveis.
  */
-export const siteUrl = "https://meguinchos.com.br";
+export const siteUrl = "https://memorettiguinchos.com.br";
 
 /**
  * Único ponto de liberação de indexação do projeto.

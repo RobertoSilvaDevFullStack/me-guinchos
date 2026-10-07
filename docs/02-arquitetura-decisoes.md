@@ -91,3 +91,9 @@ As imagens de empilhadeiras continuam documentando **transporte em plataforma**,
 3. **Páginas locais para SEO e Google Ads:** Criação de quatro rotas dedicadas e indexáveis: `/guincho-vila-anastacio` (base sede), `/guincho-marginal-tiete` (via expressa), `/guincho-zona-oeste-sp` (polo central de cobertura) e `/guincho-osasco` (município contíguo no raio operacional). Cada página conta com conteúdo original, vias de acesso, regras factuais de acionamento, dados estruturados BreadcrumbList e links internos cruzados.
 4. **Indexação e build de produção:** Ativação de `INDEXACAO_LIBERADA = true`, inclusão das novas rotas em `app/sitemap.ts`, liberação de `robots.txt` para rastreamento e remoção da trava impeditiva de compilação em `content/site.ts`, viabilizando builds limpos de produção.
 5. **Ajuste de CSP:** Inclusão dos domínios do Google Tag Manager e Google Ads/Analytics na Content Security Policy em `next.config.ts`, garantindo integridade das requisições sob consentimento.
+
+## ADR-008 — Alinhamento do domínio canônico ativo para memorettiguinchos.com.br
+
+**Data:** 07/10/2026. **Estado:** aplicada à arquitetura e ao código.
+
+**Decisão:** Atualização da constante `siteUrl` de `https://meguinchos.com.br` para `https://memorettiguinchos.com.br`. O novo domínio reflete o ambiente em produção ativo no Coolify (IP 72.61.52.78) associado à razão social do titular Luis Carlos Moretti do Nascimento (ME Moretti Guinchos). Essa mudança garante coerência absoluta entre as URLs canônicas (`<link rel="canonical">`), sitemap.xml, metadados Open Graph/Twitter, llms.txt e os sitelinks cadastrados nas campanhas do Google Ads.
