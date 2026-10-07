@@ -160,12 +160,15 @@ export default function PoliticaDePrivacidadePage() {
               gravado.
             </p>
             <p>
-              Aceitando, passa a ser carregada a <strong>tag do Google Ads</strong>{" "}
-              (gtag.js, identificador <code>AW-18490859899</code>), fornecida pelo
-              Google. Ela grava cookies no seu navegador e permite ao Google
-              informar quantas pessoas chegaram ao site a partir dos nossos
-              anúncios. A escolha é separada em duas finalidades, que você pode
-              aceitar de forma independente em &ldquo;Gerenciar&rdquo;:
+              Aceitando, passam a ser carregadas a <strong>tag do Google Ads</strong>{" "}
+              (gtag.js, identificador <code>AW-18490859899</code>) e o{" "}
+              <strong>Google Tag Manager</strong> (container{" "}
+              <code>GTM-55QGH9RR</code>), ambos fornecidos pelo Google. O Tag
+              Manager é a ferramenta que organiza essas medições; ele e a tag do
+              Ads gravam cookies no seu navegador e permitem ao Google informar
+              quantas pessoas chegaram ao site a partir dos nossos anúncios. A
+              escolha é separada em duas finalidades, que você pode aceitar de
+              forma independente em &ldquo;Gerenciar&rdquo;:
             </p>
             <ul className="politica__lista">
               <li>
@@ -205,8 +208,8 @@ export default function PoliticaDePrivacidadePage() {
               ser apagados nas configurações do seu navegador.
             </p>
             <p>
-              Não usamos Google Analytics, Google Tag Manager, Meta Pixel, mapa de
-              calor, gravação de sessão nem impressão digital de navegador. As
+              Não usamos Google Analytics, Meta Pixel, mapa de calor, gravação de
+              sessão nem impressão digital de navegador. As
               fontes tipográficas e as imagens são servidas pelo próprio site, de
               modo que a leitura das páginas, sem aceite, não gera requisição a
               terceiros. Os links de WhatsApp e de telefone funcionam sem

@@ -40,7 +40,7 @@ O responsável entregou a tag base do Google Ads `AW-18490859899` (gtag.js) para
 | Item | Onde | Comportamento |
 | --- | --- | --- |
 | Configuração e store de consentimento | `lib/medicao.ts` | ID da conta, versão do aviso, validade de 180 dias, tradução para Consent Mode v2 e leitura/escrita da preferência. |
-| Aviso, painel e carga da tag | `components/ConsentimentoMedicao.tsx` | Único ponto do site que insere `googletagmanager.com`. Sem escolha afirmativa, o `<script>` não existe no DOM. |
+| Aviso, painel e carga das tags | `components/ConsentimentoMedicao.tsx` | Único ponto do site que insere `googletagmanager.com` (tag do Ads e container do GTM). Sem escolha afirmativa, nenhum dos dois `<script>` existe no DOM. |
 | Reabertura da escolha | `components/BotaoPreferencias.tsx` | Botão no rodapé e na política; dispara o evento interno que reabre o painel. |
 
 - **Sem escolha:** nenhuma requisição sai para o Google. O HTML servido pelo servidor é idêntico com ou sem consentimento; a decisão é lida só no cliente, por `useSyncExternalStore`.
@@ -53,6 +53,27 @@ O responsável entregou a tag base do Google Ads `AW-18490859899` (gtag.js) para
 ### O que continua pendente
 
 - **Conversões do Google Ads.** Só a tag base foi instalada. Os eventos `click_whatsapp` e `click_phone` ainda não disparam: dependem do rótulo de conversão da conta (`send_to`), que é `[PREENCHER]`, e da decisão sobre medir clique no número ou chamada atendida.
-- **GA4 e Search Console.** Não instalados. Nenhum outro script de terceiro foi adicionado.
+- **GA4.** Não instalado diretamente; se for criado dentro do container, herda o Consent Mode descrito acima. Search Console continua só com a meta tag de verificação, que não é script.
 - **Validação em produção.** A tag foi verificada em prévia local: sem aceite, zero requisição; com aceite, o site requisita `https://www.googletagmanager.com/gtag/js?id=AW-18490859899`. A execução do gtag.js em si não pôde ser observada no navegador usado na verificação, que bloqueia o domínio por extensão; confirmar pelo diagnóstico da própria conta do Google Ads depois do deploy.
 - **CSP.** A política de segurança de conteúdo do item 6 de `docs/07-deploy-coolify.md` precisa prever os domínios do Google antes de ser aplicada.
+
+## Google Tag Manager — instalado em 07/10/2026
+
+Container `GTM-55QGH9RR`, informado pelo responsável. Não havia GTM no projeto antes disso; a verificação foi feita por varredura de `GTM-`, `gtm.js`, `googletagmanager` e `dataLayer` em `app/`, `components/`, `lib/`, `content/`, `scripts/` e `public/`.
+
+**Onde entrou.** `components/ConsentimentoMedicao.tsx`, ao lado da tag do Ads, atrás do mesmo gate. O `app/layout.tsx` é o único layout raiz do projeto e cobre as quatro rotas (`/`, `/areas-de-atendimento`, `/politica-de-privacidade`, `/_not-found`), então o container vale para o site inteiro. O `<Script id="google-tag-manager">` do Next não duplica o container em navegação client-side.
+
+**Ordem na `dataLayer`**, montada antes do `gtm.js` executar: `consent default` (tudo negado) → `gtag js` → `config AW-18490859899` → `{'gtm.start', event:'gtm.js'}` → `consent update` com a escolha real. Assim as tags configuradas dentro do container nascem sujeitas ao Consent Mode v2 em vez de disparar livres.
+
+### Duas diferenças conscientes em relação ao snippet padrão do Google
+
+| Instrução oficial | O que foi feito | Motivo |
+| --- | --- | --- |
+| Script o mais alto possível no `<head>` | Injetado depois do aceite, via `next/script` | No `<head>` o container baixaria para todo visitante antes de qualquer escolha, o que contraria o contrato acima, o gate de lançamento do projeto e a Política de Privacidade publicada. |
+| `<noscript>` logo após o `<body>` | Não incluído | O iframe do `<noscript>` só age quando o JavaScript está desligado — exatamente a situação em que o banner de consentimento não existe e o visitante não tem como aceitar. Incluí-lo seria medir quem não teve como escolher. |
+
+Reverter qualquer uma das duas é uma decisão de negócio, não um ajuste técnico: exige atualizar este documento e a Política de Privacidade antes, porque passa a haver requisição a terceiro sem escolha prévia.
+
+### Risco a conferir no container
+
+Se o próprio `GTM-55QGH9RR` tiver uma tag do Google Ads com o ID `AW-18490859899`, a conversão passa a ser contada duas vezes — uma pelo gtag direto, outra pelo container. Nesse caso, remover o `<Script id="gtag-google-ads">` de `components/ConsentimentoMedicao.tsx` e deixar o Ads só pelo GTM. Não dá para verificar isso pelo código: depende do que está publicado no container.

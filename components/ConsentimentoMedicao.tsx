@@ -7,6 +7,7 @@ import {
   CONSENTIMENTO_TOTAL,
   EVENTO_ABRIR_PREFERENCIAS,
   GOOGLE_ADS_ID,
+  GTM_ID,
   SEM_CONSENTIMENTO,
   algumaCategoriaAceita,
   assinarPreferencia,
@@ -108,6 +109,12 @@ export function ConsentimentoMedicao() {
       });
       gtag("js", new Date());
       gtag("config", GOOGLE_ADS_ID);
+
+      // Snippet oficial do GTM, com a única diferença de entrar aqui e não no
+      // `<head>`: o `gtm.start` precisa estar na fila antes do `gtm.js`, senão
+      // o gatilho "All Pages" do container não dispara.
+      janela.dataLayer?.push({ "gtm.start": Date.now(), event: "gtm.js" });
+
       carregouNestaVisita.current = true;
     }
 
@@ -135,11 +142,20 @@ export function ConsentimentoMedicao() {
   return (
     <>
       {ativo ? (
-        <Script
-          id="gtag-google-ads"
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-        />
+        <>
+          <Script
+            id="gtag-google-ads"
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
+          />
+          {/* `id` estável: o Next não insere o container duas vezes, nem em
+              navegação client-side, nem se este componente remontar. */}
+          <Script
+            id="google-tag-manager"
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
+          />
+        </>
       ) : null}
 
       {avisoVisivel ? (
@@ -156,9 +172,9 @@ export function ConsentimentoMedicao() {
             }
           >
             <p className="consentimento__texto">
-              Cookies do <strong>Google Ads</strong> para medir o resultado dos
-              anúncios, carregados só depois da sua escolha. Recusar não limita
-              nada no site.{" "}
+              Cookies do <strong>Google</strong> (Ads e Tag Manager) para medir o
+              resultado dos anúncios, carregados só depois da sua escolha.
+              Recusar não limita nada no site.{" "}
               <Link href="/politica-de-privacidade">Política de Privacidade</Link>.
             </p>
 

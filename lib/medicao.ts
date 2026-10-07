@@ -17,6 +17,16 @@
 export const GOOGLE_ADS_ID = "AW-18490859899";
 
 /**
+ * Container do Google Tag Manager, informado pelo responsável em 07/10/2026.
+ *
+ * Carregado pelo mesmo gate do Ads: o `gtm.js` só é inserido depois de escolha
+ * afirmativa. O `consent default` negado entra na `dataLayer` antes do GTM
+ * executar, então as tags de dentro do container nascem sujeitas ao Consent
+ * Mode v2 em vez de disparar livres.
+ */
+export const GTM_ID = "GTM-55QGH9RR";
+
+/**
  * Versão do aviso de privacidade. Mudança material no texto do banner ou nas
  * finalidades incrementa este número e faz o site pedir a escolha de novo.
  */
