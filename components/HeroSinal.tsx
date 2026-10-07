@@ -73,12 +73,20 @@ export function HeroSinal({
             <p className="heroi__descricao">{descricao}</p>
 
             <div className="heroi__acoes" role="group" aria-label="Formas de contato">
-              <a className="acao acao--whatsapp" href={contactLinks.whatsappHref}>
+              <a
+                className="acao acao--whatsapp"
+                href={contactLinks.whatsappHref}
+                data-tracking-location="hero_whatsapp"
+              >
                 <Pictograma nome="whatsapp" tamanho={22} />
                 <span>Consultar pelo WhatsApp</span>
                 <Pictograma nome="seta" tamanho={13} className="acao__seta" />
               </a>
-              <a className="acao acao--ligar" href={contactLinks.phoneHref}>
+              <a
+                className="acao acao--ligar"
+                href={contactLinks.phoneHref}
+                data-tracking-location="hero_phone"
+              >
                 <Pictograma nome="telefone" tamanho={20} />
                 <span>Ligar {contactLinks.phoneDisplay}</span>
                 <Pictograma nome="seta" tamanho={13} className="acao__seta" />

@@ -96,6 +96,7 @@ export default function HomePage() {
                     href={whatsappDoServico(servico.title)}
                     className="servico__link"
                     aria-label={`${servico.ctaLabel} para ${servico.title}`}
+                    data-tracking-location="services_whatsapp"
                   >
                     <span>{servico.ctaLabel}</span>
                     <Pictograma nome="seta" tamanho={12} />
@@ -121,6 +122,7 @@ export default function HomePage() {
             <a
               className="acao acao--whatsapp"
               href={whatsappDoServico("transporte de empilhadeira")}
+              data-tracking-location="forklift_whatsapp"
             >
               <Pictograma nome="whatsapp" tamanho={22} />
               <span>{empilhadeiraContent.ctaLabel}</span>
@@ -171,7 +173,11 @@ export default function HomePage() {
                   Atendemos <strong>domingo a domingo, das 7h às 22h</strong>,
                   no mesmo horário para guincho e para empilhadeira.
                 </p>
-                <a className="passo__link" href={siteContactLinks.phoneHref}>
+                <a
+                  className="passo__link"
+                  href={siteContactLinks.phoneHref}
+                  data-tracking-location="step_phone"
+                >
                   <span>Prefere ligar? {siteContactLinks.phoneDisplay}</span>
                   <Pictograma nome="seta" tamanho={12} />
                 </a>
@@ -265,12 +271,20 @@ export default function HomePage() {
             </p>
 
             <div className="fechamento__acoes">
-              <a className="acao acao--whatsapp" href={siteContactLinks.whatsappHref}>
+              <a
+                className="acao acao--whatsapp"
+                href={siteContactLinks.whatsappHref}
+                data-tracking-location="closing_whatsapp"
+              >
                 <Pictograma nome="whatsapp" tamanho={22} />
                 <span>{siteContent.home.whatsappLabel}</span>
                 <Pictograma nome="seta" tamanho={13} className="acao__seta" />
               </a>
-              <a className="acao acao--ligar" href={siteContactLinks.phoneHref}>
+              <a
+                className="acao acao--ligar"
+                href={siteContactLinks.phoneHref}
+                data-tracking-location="closing_phone"
+              >
                 <Pictograma nome="telefone" tamanho={20} />
                 <span>Ligar {siteContactLinks.phoneDisplay}</span>
                 <Pictograma nome="seta" tamanho={13} className="acao__seta" />

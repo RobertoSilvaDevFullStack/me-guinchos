@@ -35,7 +35,7 @@ export function SiteFooter() {
                 Contato
               </dt>
               <dd>
-                <a href={siteContactLinks.phoneHref}>
+                <a href={siteContactLinks.phoneHref} data-tracking-location="footer_phone">
                   {siteContactLinks.phoneDisplay}
                 </a>
               </dd>
@@ -50,6 +50,10 @@ export function SiteFooter() {
             </a>
           ))}
           <Link href="/areas-de-atendimento">Áreas para consulta</Link>
+          <Link href="/guincho-vila-anastacio">Vila Anastácio</Link>
+          <Link href="/guincho-marginal-tiete">Marginal Tietê</Link>
+          <Link href="/guincho-zona-oeste-sp">Zona Oeste SP</Link>
+          <Link href="/guincho-osasco">Osasco</Link>
           <BotaoPreferencias className="rodape__preferencias" />
         </nav>
       </div>

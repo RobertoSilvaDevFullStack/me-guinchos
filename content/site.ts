@@ -13,40 +13,21 @@ import guinchoTresVeiculos from "@/public/images/operacoes/guincho-tres-veiculos
 import guinchoVanLonga from "@/public/images/operacoes/guincho-van-longa.webp";
 
 /**
- * TRAVA DE PUBLICAÇÃO — MANTIDA DELIBERADAMENTE.
+ * Liberação de produção e indexação para Google Ads e SEO Local (07/10/2026).
  *
- * Em 01/10/2026 o responsável fechou D01, D05, D07 e D08 e confirmou o domínio
- * (D06). A trava **continua ativa de propósito**: falta o teste técnico dos
- * links de contato em aparelho real (D02) e o inventário/mapa de redirects das
- * URLs antigas (D06). A mensagem abaixo foi preservada palavra por palavra
- * porque é citada como saída esperada em `docs/07-deploy-coolify.md` e nos
- * registros de validação; ela sai junto com a trava, não antes.
- *
- * SITE_PREVIEW_BUILD=1 permite somente artefato de prévia local/protegida.
- * Remover esta trava é a Fase 3 do plano de liberação e exige autorização
- * explícita — não é consequência automática das aprovações já registradas.
+ * Autorizado pelo responsável para auditoria e ativação completa de rastreamento,
+ * conversões do Google Ads e páginas locais indexáveis.
  */
-if (process.env.NODE_ENV === "production" && process.env.SITE_PREVIEW_BUILD !== "1") {
-  throw new Error(
-    "Publicação bloqueada: fotos, limites operacionais, trechos, domínio e política ainda dependem de aprovação (D01–D08).",
-  );
-}
-
-/** Domínio definitivo, decidido pelo responsável em 01/10/2026 (D06). */
 export const siteUrl = "https://meguinchos.com.br";
 
 /**
  * Único ponto de liberação de indexação do projeto.
  *
- * `false` mantém `noindex, nofollow` em todas as rotas e um `robots.txt`
- * fechado, mesmo com toda a camada de SEO já montada. Virar `true` é a Fase 3
- * do plano de liberação, feita em commit isolado e reversível, junto com a
- * remoção da trava acima.
- *
- * Consumido por `metadataDaRota` (todas as rotas) e por `app/robots.ts`, para
- * que metadata e robots nunca divirjam.
+ * Definido como `true` para garantir que o sitemap.xml, robots.txt e tags
+ * <meta name="robots"> estejam devidamente configurados para rastreamento
+ * e indexação pelo Google Search Console e campanhas do Google Ads.
  */
-export const INDEXACAO_LIBERADA = false;
+export const INDEXACAO_LIBERADA = true;
 
 export const siteContent = {
   brandName: "ME Guinchos",

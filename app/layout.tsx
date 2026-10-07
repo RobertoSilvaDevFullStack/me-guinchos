@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Viewport } from "next";
 import { ConsentimentoMedicao } from "@/components/ConsentimentoMedicao";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
+import { RastreamentoContatos } from "@/components/RastreamentoContatos";
 import { homeMetadata } from "@/content/site";
 import "./globals.css";
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       </head>
       <body>
         <DadosEstruturados />
+        <RastreamentoContatos />
         {children}
         <ConsentimentoMedicao />
       </body>

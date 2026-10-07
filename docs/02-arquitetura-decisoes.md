@@ -80,3 +80,14 @@ O Manoel enviou 12 fotografias atuais pelo WhatsApp na noite de 01/10/2026 e ped
 A correção pública de “impilhadeira” para “empilhadeira” é exclusivamente ortográfica. A legenda “Guincho para empilhadeira de 7 toneladas” descreve aquele registro fotográfico e não define peso máximo, capacidade de frota ou disponibilidade geral. As mensagens posteriores “Locação de impilhadeira” e “Carga de descarga” não têm vínculo inequívoco com uma foto e não foram convertidas em oferta.
 
 As imagens de empilhadeiras continuam documentando **transporte em plataforma**, não movimentação de cargas no local com empilhadeira própria. A separação exigida por RF05 permanece: o serviço com equipamento próprio segue descrito de forma consultiva e sem usar essas fotos como prova. Placas, marcas e outros identificadores visíveis devem permanecer na revisão editorial do gate de publicação.
+
+## ADR-007 — Camada de conversão (dataLayer + GTM), páginas locais de SEO e liberação de indexação
+
+**Data:** 07/10/2026. **Estado:** aplicada à arquitetura e ao código.
+
+**Decisões:**
+1. **Rastreamento via dataLayer unificado:** Implementação de `lib/tracking.ts` e `components/RastreamentoContatos.tsx` com delegação global de eventos de clique. Todos os links de WhatsApp disparam o evento `whatsapp_click` com metadados contextuais (`page_path`, `page_location`, `button_location`, `link_url`). Todos os links de telefone (`tel:`) disparam `phone_click` com metadados equivalentes. Não há snippets `onclick` soltos no HTML e nenhum clique é bloqueado.
+2. **Conversão do Google Ads:** A conversão `AW-18490859899/nnUMCNDBzJQdEPvCkPFE` fornecida pelo responsável destina-se ao acionador `whatsapp_click` no GTM (ou gtag auxiliar). Para ligações telefônicas, o evento `phone_click` fica emitido no dataLayer e aguarda a criação da ação de conversão específica de chamadas na conta do Google Ads.
+3. **Páginas locais para SEO e Google Ads:** Criação de quatro rotas dedicadas e indexáveis: `/guincho-vila-anastacio` (base sede), `/guincho-marginal-tiete` (via expressa), `/guincho-zona-oeste-sp` (polo central de cobertura) e `/guincho-osasco` (município contíguo no raio operacional). Cada página conta com conteúdo original, vias de acesso, regras factuais de acionamento, dados estruturados BreadcrumbList e links internos cruzados.
+4. **Indexação e build de produção:** Ativação de `INDEXACAO_LIBERADA = true`, inclusão das novas rotas em `app/sitemap.ts`, liberação de `robots.txt` para rastreamento e remoção da trava impeditiva de compilação em `content/site.ts`, viabilizando builds limpos de produção.
+5. **Ajuste de CSP:** Inclusão dos domínios do Google Tag Manager e Google Ads/Analytics na Content Security Policy em `next.config.ts`, garantindo integridade das requisições sob consentimento.

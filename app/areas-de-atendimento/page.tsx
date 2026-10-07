@@ -44,6 +44,42 @@ export default function AreasDeAtendimentoPage() {
             ))}
           </ul>
 
+          <section className="mb-6">
+            <h2 className="text-xl font-bold text-[var(--azul-noite)] mb-3">
+              Páginas de atendimento e rotas locais frequentes
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/guincho-vila-anastacio"
+                className="placa placa--branca px-4 py-2 text-sm font-bold text-[var(--azul)] hover:underline inline-flex items-center gap-2"
+              >
+                <span>Guincho na Vila Anastácio</span>
+                <Pictograma nome="seta" tamanho={12} />
+              </Link>
+              <Link
+                href="/guincho-marginal-tiete"
+                className="placa placa--branca px-4 py-2 text-sm font-bold text-[var(--azul)] hover:underline inline-flex items-center gap-2"
+              >
+                <span>Guincho na Marginal Tietê</span>
+                <Pictograma nome="seta" tamanho={12} />
+              </Link>
+              <Link
+                href="/guincho-zona-oeste-sp"
+                className="placa placa--branca px-4 py-2 text-sm font-bold text-[var(--azul)] hover:underline inline-flex items-center gap-2"
+              >
+                <span>Guincho na Zona Oeste de SP</span>
+                <Pictograma nome="seta" tamanho={12} />
+              </Link>
+              <Link
+                href="/guincho-osasco"
+                className="placa placa--branca px-4 py-2 text-sm font-bold text-[var(--azul)] hover:underline inline-flex items-center gap-2"
+              >
+                <span>Guincho em Osasco</span>
+                <Pictograma nome="seta" tamanho={12} />
+              </Link>
+            </div>
+          </section>
+
           <p className="areas__nota">
             A presença de uma localidade nesta lista não significa cobertura
             integral. Rodovias e limites por trecho ainda não foram definidos.
@@ -52,12 +88,20 @@ export default function AreasDeAtendimentoPage() {
           </p>
 
           <div className="areas__acoes" role="group" aria-label="Formas de contato">
-            <a className="acao acao--whatsapp" href={siteContactLinks.whatsappHref}>
+            <a
+              className="acao acao--whatsapp"
+              href={siteContactLinks.whatsappHref}
+              data-tracking-location="areas_whatsapp"
+            >
               <Pictograma nome="whatsapp" tamanho={22} />
               <span>Consultar pelo WhatsApp</span>
               <Pictograma nome="seta" tamanho={13} className="acao__seta" />
             </a>
-            <a className="acao acao--ligar" href={siteContactLinks.phoneHref}>
+            <a
+              className="acao acao--ligar"
+              href={siteContactLinks.phoneHref}
+              data-tracking-location="areas_phone"
+            >
               <Pictograma nome="telefone" tamanho={20} />
               <span>Ligar {siteContactLinks.phoneDisplay}</span>
               <Pictograma nome="seta" tamanho={13} className="acao__seta" />

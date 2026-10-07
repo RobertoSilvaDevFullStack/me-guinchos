@@ -41,6 +41,7 @@ export function SiteHeader() {
         <a
           className="acao acao--whatsapp acao--compacta"
           href={siteContactLinks.whatsappHref}
+          data-tracking-location="header"
         >
           <Pictograma nome="whatsapp" tamanho={20} />
           <span className="acao__rotulo">Chamar no WhatsApp</span>
