@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BotaoPreferencias } from "@/components/BotaoPreferencias";
 import { Pictograma } from "@/components/Pictograma";
 import { legalContent, siteContent } from "@/content/site";
 import { siteContactLinks } from "@/lib/contact";
@@ -49,6 +50,7 @@ export function SiteFooter() {
             </a>
           ))}
           <Link href="/areas-de-atendimento">Áreas para consulta</Link>
+          <BotaoPreferencias className="rodape__preferencias" />
         </nav>
       </div>
 

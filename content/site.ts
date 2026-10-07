@@ -84,7 +84,7 @@ export const legalContent = {
   /** Canal de comunicação com o titular, exigido pela Resolução CD/ANPD nº 2/2022. */
   emailPrivacidade: "MORETTI95@GMAIL.COM",
   anoCorrente: 2026,
-  atualizadoEm: "29 de setembro de 2026",
+  atualizadoEm: "7 de outubro de 2026",
   desenvolvedor: {
     nome: "Roberto Silva",
     url: "https://robertosilvadevfullstack.cloud/",

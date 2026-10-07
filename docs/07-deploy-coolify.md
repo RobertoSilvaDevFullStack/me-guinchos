@@ -123,10 +123,16 @@ RUN apk add --no-cache libc6-compat
 5. Resolver os três acabamentos visuais pendentes da auditoria: anel de foco com
    contraste insuficiente em fundo claro, cartões do miolo, enquadramento da foto da
    empilhadeira.
-6. Adicionar banner de consentimento antes de qualquer script de medição, e
-   atualizar a Política de Privacidade — hoje ela afirma que o site não usa cookies
-   nem analytics, o que é verdade e deixa de ser no momento em que algo for
-   adicionado.
+6. **Feito em 07/10/2026.** Banner de consentimento implementado em
+   `components/ConsentimentoMedicao.tsx` e Política de Privacidade atualizada antes
+   da instalação da tag do Google Ads `AW-18490859899`. Nenhum script de terceiro é
+   baixado sem aceite. Antes do deploy, conferir no artefato publicado: sem escolha,
+   zero requisição para `googletagmanager.com`; com aceite, a tag carrega; na
+   revogação, a preferência é apagada e a página recarrega sem scripts. A CSP do
+   item seguinte precisa liberar `https://www.googletagmanager.com` (script-src) e
+   `https://*.google.com`, `https://*.googleadservices.com`,
+   `https://*.doubleclick.net` (img-src/connect-src) apenas quando houver medição
+   consentida.
 7. Confirmar os redirects 301 conhecidos, `www` → non-www e a ausência de cadeia;
    listar separadamente toda URL antiga ainda sem equivalente comprovado.
 8. Rodar o primeiro `docker build` sem `--build-arg` num ambiente com rede limpa e

@@ -23,8 +23,8 @@ Nenhum evento ou UTM deve carregar nome, telefone, e-mail, placa, localização 
 
 | Dado/categoria | Finalidade | Destinatário | Base e retenção |
 | --- | --- | --- | --- |
-| Preferência local de consentimento | Aplicar a escolha do visitante | Navegador do próprio visitante | Necessário à preferência; prazo `[PREENCHER]` e revisão jurídica. |
-| Eventos `click_*`, somente após aceite | Medir interesse por página/CTA | Ferramenta de analytics/ads `[PREENCHER]` | Consentimento no projeto; prazo e eventual transferência internacional `[PREENCHER]`. |
+| Preferência local de consentimento | Aplicar a escolha do visitante | Navegador do próprio visitante | Necessário à preferência; 180 dias como padrão técnico desde 07/10/2026, revisão jurídica pendente. |
+| Eventos `click_*`, somente após aceite | Medir interesse por página/CTA | Google Ads `AW-18490859899` (Google LLC) — eventos ainda não implementados | Consentimento; transferência internacional ao Google, prazo conforme a retenção praticada na conta. |
 | Informação enviada pelo usuário no WhatsApp ou por telefone | Atendimento comercial | WhatsApp/operadora e equipe ME | Tratamento fora do site; controlador, base, retenção e fornecedores devem constar da política aprovada. |
 
 Base de referência: [guia de cookies da ANPD](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia_orientativo_cookies_e_protecao_de_dados_pessoais). A configuração específica de conversão do Google Ads só deve ser definida quando contas, modalidade de chamada e consentimento estiverem claros; [o Google distingue clique no número de chamada medida](https://support.google.com/google-ads/answer/16559798?hl=pt-BR).
@@ -32,3 +32,27 @@ Base de referência: [guia de cookies da ANPD](https://www.gov.br/anpd/pt-br/cen
 ## Operação de anúncios
 
 Antes de conectar pixels: identificar responsáveis pelas contas, IDs de medição, campanhas, eventos primários/secundários e acesso ao atendimento. Testar UTMs e links sem dados pessoais. Ao analisar performance, apresentar números antes/depois e janela de comparação; não declarar aumento de conversão a partir de cliques isolados.
+
+## Implementação em 07/10/2026 — tag do Google Ads
+
+O responsável entregou a tag base do Google Ads `AW-18490859899` (gtag.js) para instalação. Ela foi instalada **sob o gate de consentimento**, nunca solta no `<head>`.
+
+| Item | Onde | Comportamento |
+| --- | --- | --- |
+| Configuração e store de consentimento | `lib/medicao.ts` | ID da conta, versão do aviso, validade de 180 dias, tradução para Consent Mode v2 e leitura/escrita da preferência. |
+| Aviso, painel e carga da tag | `components/ConsentimentoMedicao.tsx` | Único ponto do site que insere `googletagmanager.com`. Sem escolha afirmativa, o `<script>` não existe no DOM. |
+| Reabertura da escolha | `components/BotaoPreferencias.tsx` | Botão no rodapé e na política; dispara o evento interno que reabre o painel. |
+
+- **Sem escolha:** nenhuma requisição sai para o Google. O HTML servido pelo servidor é idêntico com ou sem consentimento; a decisão é lida só no cliente, por `useSyncExternalStore`.
+- **Categorias separadas:** `medicao` → `analytics_storage`; `publicidade` → `ad_storage`, `ad_user_data`, `ad_personalization`. O painel permite aceitar uma e recusar a outra.
+- **Recusa:** nada é carregado e **nada é gravado** — a recusa não deixa registro local, então o aviso reaparece na próxima visita. Essa é a troca consciente entre não persistir identificador de quem disse não e não repetir a pergunta.
+- **Revogação:** apaga a preferência, envia `consent update` negado e recarrega a página, de modo que nada que já estava em memória continue ativo.
+- **Preferência local:** chave `meg.consentimento` no `localStorage`, com categorias, versão do aviso e data. 180 dias é **padrão técnico adotado na implementação**, não prazo validado juridicamente; a revisão com responsável apropriado continua pendente.
+- **Política de Privacidade:** atualizada na mesma alteração (seção de cookies, base legal de consentimento, transferência internacional para o Google LLC, prazos e botão de revogação).
+
+### O que continua pendente
+
+- **Conversões do Google Ads.** Só a tag base foi instalada. Os eventos `click_whatsapp` e `click_phone` ainda não disparam: dependem do rótulo de conversão da conta (`send_to`), que é `[PREENCHER]`, e da decisão sobre medir clique no número ou chamada atendida.
+- **GA4 e Search Console.** Não instalados. Nenhum outro script de terceiro foi adicionado.
+- **Validação em produção.** A tag foi verificada em prévia local: sem aceite, zero requisição; com aceite, o site requisita `https://www.googletagmanager.com/gtag/js?id=AW-18490859899`. A execução do gtag.js em si não pôde ser observada no navegador usado na verificação, que bloqueia o domínio por extensão; confirmar pelo diagnóstico da própria conta do Google Ads depois do deploy.
+- **CSP.** A política de segurança de conteúdo do item 6 de `docs/07-deploy-coolify.md` precisa prever os domínios do Google antes de ser aplicada.
