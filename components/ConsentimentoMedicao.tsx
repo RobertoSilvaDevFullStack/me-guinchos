@@ -6,7 +6,6 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
 import {
   CONSENTIMENTO_TOTAL,
   EVENTO_ABRIR_PREFERENCIAS,
-  GOOGLE_ADS_ID,
   GTM_ID,
   SEM_CONSENTIMENTO,
   algumaCategoriaAceita,
@@ -108,7 +107,6 @@ export function ConsentimentoMedicao() {
         analytics_storage: "denied",
       });
       gtag("js", new Date());
-      gtag("config", GOOGLE_ADS_ID);
 
       // Snippet oficial do GTM, com a única diferença de entrar aqui e não no
       // `<head>`: o `gtm.start` precisa estar na fila antes do `gtm.js`, senão
@@ -142,20 +140,13 @@ export function ConsentimentoMedicao() {
   return (
     <>
       {ativo ? (
-        <>
-          <Script
-            id="gtag-google-ads"
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-          />
-          {/* `id` estável: o Next não insere o container duas vezes, nem em
-              navegação client-side, nem se este componente remontar. */}
-          <Script
-            id="google-tag-manager"
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
-          />
-        </>
+        /* `id` estável: o Next não insere o container duas vezes, nem em
+           navegação client-side, nem se este componente remontar. */
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`}
+        />
       ) : null}
 
       {avisoVisivel ? (

@@ -26,11 +26,12 @@ import type { NextConfig } from "next";
  */
 const cspProducao = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://www.googletagmanager.com https://*.google.com https://*.googleadservices.com https://*.doubleclick.net https://*.google-analytics.com",
-  "font-src 'self'",
-  "connect-src 'self' https://www.googletagmanager.com https://*.google.com https://*.googleadservices.com https://*.doubleclick.net https://*.google-analytics.com https://region1.google-analytics.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://*.googleadservices.com https://www.google.com https://*.google.com https://googleads.g.doubleclick.net",
+  "style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com",
+  "img-src 'self' data: https://www.googletagmanager.com https://*.googletagmanager.com https://ssl.gstatic.com https://www.gstatic.com https://google.com https://*.google.com https://google.com.br https://*.google.com.br https://googleadservices.com https://*.googleadservices.com https://*.doubleclick.net https://googleads.g.doubleclick.net https://*.g.doubleclick.net https://*.google-analytics.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "connect-src 'self' https://www.googletagmanager.com https://*.googletagmanager.com https://google.com https://*.google.com https://google.com.br https://*.google.com.br https://googleadservices.com https://*.googleadservices.com https://*.doubleclick.net https://googleads.g.doubleclick.net https://*.g.doubleclick.net https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.google-analytics.com https://region1.google-analytics.com",
+  "frame-src 'self' https://www.googletagmanager.com https://*.googletagmanager.com https://bid.g.doubleclick.net https://*.doubleclick.net https://td.doubleclick.net",
   "base-uri 'self'",
   "form-action 'self'",
   "object-src 'none'",

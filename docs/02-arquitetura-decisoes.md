@@ -97,3 +97,16 @@ As imagens de empilhadeiras continuam documentando **transporte em plataforma**,
 **Data:** 07/10/2026. **Estado:** aplicada à arquitetura e ao código.
 
 **Decisão:** Atualização da constante `siteUrl` de `https://meguinchos.com.br` para `https://memorettiguinchos.com.br`. O novo domínio reflete o ambiente em produção ativo no Coolify (IP 72.61.52.78) associado à razão social do titular Luis Carlos Moretti do Nascimento (ME Moretti Guinchos). Essa mudança garante coerência absoluta entre as URLs canônicas (`<link rel="canonical">`), sitemap.xml, metadados Open Graph/Twitter, llms.txt e os sitelinks cadastrados nas campanhas do Google Ads.
+
+## ADR-009 — Ampliação cirúrgica da CSP para Google Ads Conversion Tracking e saneamento de duplicidade de Tag Base
+
+**Data:** 09/10/2026. **Estado:** aplicada à arquitetura e ao código.
+
+**Decisões:**
+1. **Ajuste cirúrgico da CSP:** Atualização de `cspProducao` em `next.config.ts` para permitir os recursos estritamente necessários ao Google Tag Manager e à Tag de Conversão do Google Ads.
+   - `script-src`: inclusão de `https://*.googletagmanager.com`, `https://tagmanager.google.com`, `https://www.googleadservices.com`, `https://*.googleadservices.com`, `https://www.google.com`, `https://*.google.com`, `https://googleads.g.doubleclick.net`.
+   - `connect-src`: inclusão de domínios apex (`google.com`, `googleadservices.com`), TLD Brasil (`google.com.br`, `*.google.com.br`), telemetria (`pagead2.googlesyndication.com`, `*.googlesyndication.com`, `googleads.g.doubleclick.net`, `*.g.doubleclick.net`).
+   - `frame-src`: criação da diretiva restrita para `bid.g.doubleclick.net`, `td.doubleclick.net`, `googletagmanager.com` e `*.doubleclick.net`, evitando bloqueio de sincronização de cookies de conversão pelo fallback `default-src 'self'`.
+   - `img-src` e `style-src`/`font-src`: liberação de endpoints de pixel e suporte ao Tag Assistant do GTM (`ssl.gstatic.com`, `fonts.googleapis.com`, `fonts.gstatic.com`).
+2. **Eliminação de duplicidade da Tag Base:** Remoção do `<Script id="gtag-google-ads">` e da chamada direta `gtag("config", GOOGLE_ADS_ID)` em `components/ConsentimentoMedicao.tsx`. A governança e disparo da Tag Base `AW-18490859899`, remarketing e conversões é centralizada no container `GTM-55QGH9RR`.
+3. **Preservação de integridade:** O Consent Mode v2 (`consent default` e `consent update`), a fila do `dataLayer`, e os eventos customizados de conversão (`whatsapp_click` e `phone_click`) são mantidos 100% íntegros. Nenhuma liberação global `*` ou desativação de CSP foi utilizada.

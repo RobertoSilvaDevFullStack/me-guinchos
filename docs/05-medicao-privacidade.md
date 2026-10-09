@@ -74,6 +74,6 @@ Container `GTM-55QGH9RR`, informado pelo responsável. Não havia GTM no projeto
 
 Reverter qualquer uma das duas é uma decisão de negócio, não um ajuste técnico: exige atualizar este documento e a Política de Privacidade antes, porque passa a haver requisição a terceiro sem escolha prévia.
 
-### Risco a conferir no container
+### Resolução de duplicidade (09/10/2026)
 
-Se o próprio `GTM-55QGH9RR` tiver uma tag do Google Ads com o ID `AW-18490859899`, a conversão passa a ser contada duas vezes — uma pelo gtag direto, outra pelo container. Nesse caso, remover o `<Script id="gtag-google-ads">` de `components/ConsentimentoMedicao.tsx` e deixar o Ads só pelo GTM. Não dá para verificar isso pelo código: depende do que está publicado no container.
+A tag direta `gtag-google-ads` e a chamada `gtag("config", AW-18490859899)` foram removidas de `components/ConsentimentoMedicao.tsx`. O gerenciamento da Tag Base do Google Ads, remarketing e conversões passa a ser 100% governado dentro do container `GTM-55QGH9RR`, eliminando o risco de dupla contagem e preservando o Consent Mode v2 e o evento `whatsapp_click` no `dataLayer`.
