@@ -12,7 +12,7 @@ export const metadata: Metadata = metadataDaRota({
   path: "/guincho-zona-oeste-sp",
   title: "Guincho na Zona Oeste de SP | ME Guinchos",
   description:
-    "Guincho plataforma na Zona Oeste de São Paulo para carros, motos, vans e empilhadeiras. Atendimento consultivo de domingo a domingo, das 7h às 22h.",
+    "Guincho plataforma na Zona Oeste de São Paulo para carros, motos, vans e empilhadeiras. Atendimento 24 horas, de domingo a domingo.",
 });
 
 const breadcrumbSchema = {
@@ -177,9 +177,9 @@ export default function GuinchoZonaOestePage() {
 
           <section className="mb-12">
             <div className="placa placa--azul p-8 rounded-xl" data-placa="azul">
-              <h2 className="text-2xl font-black mb-3">Atendimento todos os dias, das 7h às 22h</h2>
+              <h2 className="text-2xl font-black mb-3">Atendimento 24 horas todos os dias</h2>
               <p className="mb-4 text-white/90">
-                Horário consistente de segunda a domingo para guincho de veículos e operações com
+                Atendimento ininterrupto 24 horas por dia, 7 dias por semana, para guincho de veículos e operações com
                 empilhadeira na Zona Oeste de SP.
               </p>
               <p className="text-white/80 text-sm mb-6">

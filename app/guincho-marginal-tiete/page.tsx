@@ -12,7 +12,7 @@ export const metadata: Metadata = metadataDaRota({
   path: "/guincho-marginal-tiete",
   title: "Guincho na Marginal Tietê SP | ME Guinchos",
   description:
-    "Guincho plataforma na Marginal Tietê para veículos em pane ou colisão. Atendimento rápido nos trechos da Zona Oeste e pontes da região. Das 7h às 22h.",
+    "Guincho plataforma na Marginal Tietê para veículos em pane ou colisão. Atendimento rápido nos trechos da Zona Oeste e pontes da região. Atendimento 24 horas.",
 });
 
 const breadcrumbSchema = {
@@ -173,9 +173,9 @@ export default function GuinchoMarginalTietePage() {
 
           <section className="mb-12">
             <div className="placa placa--azul p-8 rounded-xl" data-placa="azul">
-              <h2 className="text-2xl font-black mb-3">Plantão diário das 7h às 22h</h2>
+              <h2 className="text-2xl font-black mb-3">Plantão 24 horas todos os dias</h2>
               <p className="mb-4 text-white/90">
-                Atendimento diário, inclusive fins de semana e feriados, das 7h às 22h. Caminhão-plataforma
+                Atendimento 24 horas por dia, 7 dias por semana, inclusive fins de semana, feriados e madrugadas. Caminhão-plataforma
                 com guincho asa-delta e prancha hidráulica.
               </p>
               <p className="text-white/80 text-sm mb-6">

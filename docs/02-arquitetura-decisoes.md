@@ -110,3 +110,56 @@ As imagens de empilhadeiras continuam documentando **transporte em plataforma**,
    - `img-src` e `style-src`/`font-src`: liberação de endpoints de pixel e suporte ao Tag Assistant do GTM (`ssl.gstatic.com`, `fonts.googleapis.com`, `fonts.gstatic.com`).
 2. **Eliminação de duplicidade da Tag Base:** Remoção do `<Script id="gtag-google-ads">` e da chamada direta `gtag("config", GOOGLE_ADS_ID)` em `components/ConsentimentoMedicao.tsx`. A governança e disparo da Tag Base `AW-18490859899`, remarketing e conversões é centralizada no container `GTM-55QGH9RR`.
 3. **Preservação de integridade:** O Consent Mode v2 (`consent default` e `consent update`), a fila do `dataLayer`, e os eventos customizados de conversão (`whatsapp_click` e `phone_click`) são mantidos 100% íntegros. Nenhuma liberação global `*` ou desativação de CSP foi utilizada.
+
+## ADR-010 — Remoção do banner de consentimento e carregamento direto do Google Tag Manager para restauração de alcance e conversão das campanhas
+
+**Data:** 16/10/2026. **Estado:** aplicada à arquitetura e ao código.
+
+**Contexto:** O projeto enfrentava baixa entrega, alcance reduzido e perda de relevância nas campanhas de tráfego pago (Google Ads). Na modalidade de guincho emergencial, o público busca socorro em situação crítica e quase nunca interagia com o banner de cookies flutuante, que bloqueava a carga das tags antes do clique afirmativo. Como consequência:
+1. Mais de 90% das sessões e cliques para WhatsApp/telefone não eram reportados ao Google Ads.
+2. O algoritmo de Smart Bidding/Maximização de Conversões do Google Ads operava sem dados de conversão, degradando o Índice de Qualidade, reduzindo a participação em leilões e limitando o alcance.
+3. A presença do banner flutuante no mobile disputava espaço visual com a barra fixa de contato (`BarraContato`).
+
+**Decisões:**
+1. **Remoção do banner e do modal de preferências:** Os componentes `ConsentimentoMedicao` e `BotaoPreferencias` foram removidos da interface visual, eliminando o atrito no funil de atendimento e reduzindo o bundle CSS.
+2. **Carregamento direto e assíncrono do Google Tag Manager:** Inclusão de `components/GoogleTagManager.tsx` no layout raiz (`app/layout.tsx`), com inicialização assíncrona (`strategy="afterInteractive"`). O container `GTM-55QGH9RR` é carregado diretamente, com `consent default` configurado em `granted` para `ad_storage`, `ad_user_data`, `ad_personalization` e `analytics_storage`.
+3. **Preservação do rastreamento de eventos:** O `dataLayer` e os eventos de conversão `whatsapp_click` e `phone_click` (`components/RastreamentoContatos.tsx` e `lib/tracking.ts`) permanecem 100% ativos e agora alimentam o Google Ads para todas as interações.
+4. **Governança de privacidade e transparência:** A Política de Privacidade (`/politica-de-privacidade`) foi atualizada para descrever o uso das tags com base no Legítimo Interesse (art. 7º, IX da LGPD) para apuração de eficácia de anúncios e métricas agregadas, reiterando que nenhum dado pessoal (nome, telefone, placa, texto de conversa) é enviado em parâmetros de eventos ou URLs.
+
+## ADR-011 — Expansão das Landing Pages de Sitelinks para Google Ads e SEO Técnico
+
+**Data:** 16/10/2026. **Estado:** aplicada à arquitetura e ao código.
+
+**Contexto:** Criação de seis páginas de destino específicas para os sitelinks da campanha de Pesquisa do Google Ads e SEO orgânico local, garantindo máxima relevância de anúncio, aumento de CTR, melhor Índice de Qualidade e rastreamento preciso de conversões.
+
+**Decisões:**
+1. **Implementação de 6 rotas dedicadas:**
+   - `/guincho-24-horas`: foco na busca por socorro e plantão diário (7h às 22h, de domingo a domingo). Transparência total sobre horário de operação.
+   - `/transporte-de-veiculos`: foco em translado e transporte programado de carros, SUVs e utilitários leves sobre plataforma sem arrasto (sem motos).
+   - `/transporte-de-empilhadeiras`: linguagem consultiva para carregamento e transporte de máquinas industriais, com menção consultiva a serviços com equipamento próprio.
+   - `/solicitar-orcamento`: página de cotação rápida com `FormularioOrcamento.tsx` gerando mensagem estruturada diretamente para o WhatsApp sem backend.
+   - `/guincho-lapa-sp`: página regional da Lapa com vias e marcos locais (Rua Clélia, Estação Lapa, Mercado, Viaduto da Lapa).
+   - `/servicos-de-reboque`: foco em resgate emergencial em vias/rodovias para veículos quebrados ou acidentados (diferenciado do transporte logístico programado).
+2. **Reutilização da arquitetura e design system:** Utilização dos componentes globais (`SiteHeader`, `SiteFooter`, `BarraContato`, `Retrorreflexao`, `Pictograma`), cards com a classe `placa`, e imagens reais da frota autorizada ME (`guinchoTresVeiculos`, `guinchoCarroLuxo`, `guinchoEmpilhadeiras`, `guinchoPlataformaGrande`).
+3. **Conversões e dataLayer:** Todas as novas páginas utilizam CTAs mapeados com `data-tracking-location` único e disparam `whatsapp_click` e `phone_click` para o container `GTM-55QGH9RR`.
+4. **Descoberta e SEO Técnico:** Inclusão no `app/sitemap.ts`, metadados completos com canonicals em `metadataDaRota`, dados estruturados Schema.org (`BreadcrumbList` e `Service`/`EmergencyService`/`AutoRepair`).
+
+## ADR-012 — Ampliação operacional para Atendimento 24 Horas (7 dias por semana)
+
+**Data:** 16/10/2026. **Estado:** aplicada à arquitetura e ao código.
+
+**Contexto:** O cliente confirmou a contratação de um novo motorista para a escala noturna/plantão, expandindo a capacidade operacional da Memoretti Guinchos de 7h–22h para atendimento ininterrupto 24 horas por dia, 7 dias por semana (inclusive madrugadas, fins de semana e feriados).
+
+**Decisões:**
+1. **Atualização das informações comerciais:**
+   - Atualização da constante `hoursLabel` em `content/site.ts` para `"Atendimento 24 horas, todos os dias"`.
+   - Atualização do rodapé (`SiteFooter.tsx`), página inicial (`app/page.tsx`), formulário (`FormularioOrcamento.tsx`) e resumo de atendimento.
+   - Atualização de todas as páginas regionais (`app/guincho-lapa-sp`, `app/guincho-marginal-tiete`, `app/guincho-osasco`, `app/guincho-vila-anastacio`, `app/guincho-zona-oeste-sp`) e páginas de sitelink (`app/guincho-24-horas`, `app/transporte-de-veiculos`, `app/solicitar-orcamento`, `app/servicos-de-reboque`).
+2. **Dados Estruturados Schema.org:**
+   - Em `components/DadosEstruturados.tsx` e `app/guincho-lapa-sp/page.tsx`, a especificação `openingHoursSpecification` foi atualizada de `07:00`/`22:00` para `opens: "00:00"` e `closes: "23:59"`.
+   - Em `app/guincho-24-horas/page.tsx`, o schema `@type: "EmergencyService"` reflete `openingHoursSpecification` cobrindo 24h em todos os dias da semana.
+3. **Coerência de Anúncios e SEO:**
+   - A rota `/guincho-24-horas` passa a operar como representação fidedigna do serviço ativo 24h, garantindo perfeita correspondência com anúncios no Google Ads para termos de busca de emergência 24 horas.
+
+
+

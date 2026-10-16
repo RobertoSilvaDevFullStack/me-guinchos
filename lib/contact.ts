@@ -11,7 +11,7 @@
  * links em aparelho real — abrir conversa, abrir discador e confirmar o
  * recebimento pelo responsável — continua pendente e segue listado na D02.
  */
-const sitePhone = {
+export const sitePhone = {
   e164: "+5511930299233",
   display: "(11) 93029-9233",
   approvalStatus: "confirmado",
@@ -46,4 +46,9 @@ export function buildContactLinks(
   };
 }
 
+export function criarLinkWhatsApp(mensagem: string): string {
+  return `https://wa.me/${sitePhone.e164.slice(1)}?text=${encodeURIComponent(mensagem)}`;
+}
+
 export const siteContactLinks = buildContactLinks(sitePhone, initialMessage);
+

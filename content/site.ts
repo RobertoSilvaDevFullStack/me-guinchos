@@ -36,7 +36,7 @@ export const siteContent = {
     description:
       "Guincho plataforma para carros, motos, vans e utilitários. Informe o veículo, o local e o destino para consultar o atendimento.",
     regionLabel: "Raio aproximado de 20 km a partir da zona oeste de São Paulo. Consulte seu endereço.",
-    hoursLabel: "Todos os dias, das 7h às 22h, para todos os serviços.",
+    hoursLabel: "Atendimento 24 horas, todos os dias da semana, para todos os serviços.",
     whatsappLabel: "Consultar pelo WhatsApp",
     phoneLabel: "Ligar agora",
   },
@@ -385,5 +385,5 @@ export const homeMetadata: Metadata = metadataDaRota({
   path: "/",
   title: "ME Guinchos — guincho para carros, motos, vans e empilhadeiras em SP",
   description:
-    "Guincho plataforma para carros, motos, vans e utilitários na zona oeste de São Paulo, com empilhadeira própria para transporte e movimentação de cargas. Todos os dias, das 7h às 22h.",
+    "Guincho plataforma para carros, motos, vans e utilitários na zona oeste de São Paulo, com empilhadeira própria para transporte e movimentação de cargas. Atendimento 24 horas, de domingo a domingo.",
 });

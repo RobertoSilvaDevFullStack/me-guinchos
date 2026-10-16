@@ -12,7 +12,7 @@ export const metadata: Metadata = metadataDaRota({
   path: "/guincho-vila-anastacio",
   title: "Guincho na Vila Anastácio SP | ME Guinchos",
   description:
-    "Guincho plataforma para carros, motos, vans e empilhadeiras na Vila Anastácio e entorno da Lapa. Atendimento diário das 7h às 22h. Consulte pelo WhatsApp.",
+    "Guincho plataforma para carros, motos, vans e empilhadeiras na Vila Anastácio e entorno da Lapa. Atendimento 24 horas todos os dias. Consulte pelo WhatsApp.",
 });
 
 const breadcrumbSchema = {
@@ -177,7 +177,7 @@ export default function GuinchoVilaAnastacioPage() {
             <div className="placa placa--azul p-8 rounded-xl" data-placa="azul">
               <h2 className="text-2xl font-black mb-3">Horário e formas de pagamento</h2>
               <p className="mb-4 text-white/90">
-                Atendimento de <strong>domingo a domingo, das 7h às 22h</strong>, para todos os
+                Atendimento <strong>24 horas por dia, 7 dias por semana</strong>, inclusive domingos, feriados e madrugadas, para todos os
                 serviços de guincho e empilhadeira.
               </p>
               <p className="text-white/80 text-sm mb-6">

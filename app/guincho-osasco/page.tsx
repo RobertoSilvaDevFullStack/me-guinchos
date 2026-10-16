@@ -12,7 +12,7 @@ export const metadata: Metadata = metadataDaRota({
   path: "/guincho-osasco",
   title: "Guincho em Osasco SP | ME Guinchos",
   description:
-    "Guincho plataforma para carros, motos e vans em Osasco. Atendimento com base próxima na Zona Oeste de SP. Domingo a domingo, das 7h às 22h.",
+    "Guincho plataforma para carros, motos e vans em Osasco. Atendimento com base próxima na Zona Oeste de SP. Atendimento 24 horas, todos os dias.",
 });
 
 const breadcrumbSchema = {
@@ -173,9 +173,9 @@ export default function GuinchoOsascoPage() {
 
           <section className="mb-12">
             <div className="placa placa--azul p-8 rounded-xl" data-placa="azul">
-              <h2 className="text-2xl font-black mb-3">Atendimento diário das 7h às 22h</h2>
+              <h2 className="text-2xl font-black mb-3">Atendimento 24 horas todos os dias</h2>
               <p className="mb-4 text-white/90">
-                Sem horário comercial restrito: atendemos de segunda a domingo, das 7h às 22h,
+                Sem horário comercial restrito: atendemos 24 horas por dia, 7 dias por semana, inclusive fins de semana e madrugadas,
                 com resposta ágil pelo WhatsApp.
               </p>
               <p className="text-white/80 text-sm mb-6">

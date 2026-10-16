@@ -168,10 +168,10 @@ export default function HomePage() {
 
               <li className="placa placa--branca passo" data-placa="branca">
                 <span className="passo__numero">3</span>
-                <h3>Confirme o horário</h3>
+                <h3>Atendimento 24 horas</h3>
                 <p>
-                  Atendemos <strong>domingo a domingo, das 7h às 22h</strong>,
-                  no mesmo horário para guincho e para empilhadeira.
+                  Atendimento <strong>24 horas, 7 dias por semana</strong>,
+                  inclusive durante a madrugada, fins de semana e feriados.
                 </p>
                 <a
                   className="passo__link"
@@ -297,7 +297,7 @@ export default function HomePage() {
                   <Pictograma nome="relogio" tamanho={15} />
                   Horário
                 </dt>
-                <dd>Domingo a domingo, das 7h às 22h</dd>
+                <dd>Atendimento 24 horas, todos os dias</dd>
               </div>
               <div className="suplemento__item">
                 <dt>

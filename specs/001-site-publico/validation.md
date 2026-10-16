@@ -9,7 +9,7 @@ Para cada teste: registrar data, ambiente, dispositivo/viewport, resultado, evid
 | V01 | Visual em **360, 390, 768 e 1280 px** | Sem rolagem horizontal, sobreposição, corte de texto/CTA ou banner cobrindo a ação; alvos ≥44×44 px. |
 | V02 | Smartphone real: WhatsApp e ligação | Número correto, mensagem correta, app/discador abre; testar sem JS e sem consentimento. |
 | V03 | Teclado, leitor de tela, zoom e contraste | Ordem lógica, foco visível, alt pertinente, headings coerentes, zoom 200% sem perda de função. |
-| V04 | Conteúdo | Número e janela 7h–22h todos os dias coerentes em todas as páginas; áreas apenas na precisão aprovada, serviços de empilhadeira separados, capacidade não inventada, fotos/depoimentos aprovados; zero `[PREENCHER]` em produção; build falha com dado pendente. |
+| V04 | Conteúdo | Número e atendimento 24 horas todos os dias coerentes em todas as páginas (ADR-012); áreas apenas na precisão aprovada, serviços de empilhadeira separados, capacidade não inventada, fotos aprovadas; zero `[PREENCHER]` em produção; build falha com dado pendente. |
 | V05 | Consentimento e rede | Antes do aceite e após rejeição/revogação, nenhum GA4/GTM/Ads/pixel; contatos continuam operantes. |
 | V06 | SEO | Rotas 200, títulos/canonicals/OG/JSON-LD corretos; `/robots.txt`, `/sitemap.xml`, `/llms.txt`; sitemap só com URLs finais. |
 | V07 | Migração, se aplicável | URLs antigas relevantes respondem 301 para equivalente; sem cadeia/404 inesperado; Search Console acompanhado. |

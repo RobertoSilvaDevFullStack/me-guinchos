@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BarraContato } from "@/components/BarraContato";
-import { BotaoPreferencias } from "@/components/BotaoPreferencias";
 import { Pictograma } from "@/components/Pictograma";
 import { Retrorreflexao } from "@/components/Retrorreflexao";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -148,72 +147,48 @@ export default function PoliticaDePrivacidadePage() {
           <section className="politica__secao" aria-labelledby="pol-cookies">
             <h2 id="pol-cookies">Cookies e tecnologias semelhantes</h2>
             <p>
-              <strong>
-                Nenhum cookie de medição ou de publicidade é gravado antes da sua
-                escolha.
-              </strong>{" "}
-              Na primeira visita, o site exibe um aviso com as opções
-              &ldquo;Aceitar&rdquo;, &ldquo;Recusar&rdquo; e
-              &ldquo;Gerenciar&rdquo;. Enquanto você não escolher, nenhum script
-              de terceiro é carregado e nenhuma requisição sai do seu navegador
-              para outra empresa. Se você recusar, nada é carregado e nada é
-              gravado.
+              Este site utiliza tecnologias de medição estritamente voltadas a
+              avaliar o alcance e o desempenho das nossas campanhas de divulgação.
+              São carregadas a <strong>tag do Google Ads</strong> (identificador{" "}
+              <code>AW-18490859899</code>) e o <strong>Google Tag Manager</strong>{" "}
+              (container <code>GTM-55QGH9RR</code>), ambos fornecidos pelo Google.
             </p>
             <p>
-              Aceitando, passam a ser carregadas a <strong>tag do Google Ads</strong>{" "}
-              (gtag.js, identificador <code>AW-18490859899</code>) e o{" "}
-              <strong>Google Tag Manager</strong> (container{" "}
-              <code>GTM-55QGH9RR</code>), ambos fornecidos pelo Google. O Tag
-              Manager é a ferramenta que organiza essas medições; ele e a tag do
-              Ads gravam cookies no seu navegador e permitem ao Google informar
-              quantas pessoas chegaram ao site a partir dos nossos anúncios. A
-              escolha é separada em duas finalidades, que você pode aceitar de
-              forma independente em &ldquo;Gerenciar&rdquo;:
+              Essas tags registram dados técnicos de visitação e cliques nos links
+              de contato (WhatsApp e discador de telefone) para que possamos
+              compreender quais anúncios resultam em acionamentos reais do serviço
+              de guincho.
             </p>
             <ul className="politica__lista">
               <li>
-                <strong>Medição de audiência.</strong> Quantas pessoas chegam ao
-                site e por quais páginas, em números agregados.
+                <strong>Medição de audiência agregada:</strong> Quantas pessoas
+                chegam ao site e por quais páginas, em números estatísticos
+                consolidados.
               </li>
               <li>
-                <strong>Publicidade.</strong> Medição do resultado dos anúncios do
-                Google Ads e exibição de anúncios nossos a quem já visitou o site.
+                <strong>Desempenho de publicidade:</strong> Medição do resultado
+                dos anúncios no Google Ads para otimizar a relevância e exibição a
+                quem busca socorro para veículos na região atendida.
               </li>
             </ul>
             <p>
-              Essas medições não envolvem nome, telefone, e-mail, placa, texto de
-              mensagem, localização precisa nem qualquer dado da ocorrência. Nós
-              não recebemos do Google a identificação de visitante nenhum; vemos
-              apenas totais.
+              <strong>Ausência de coleta de dados pessoais em eventos:</strong> Essas
+              medições não envolvem nome, telefone, e-mail, placa de veículo,
+              conteúdo de mensagens trocadas no WhatsApp ou localização exata. Nós
+              não recebemos do Google a identidade individual de visitantes; temos
+              acesso unicamente a métricas agregadas de campanhas.
             </p>
             <p>
-              Para aplicar a sua escolha, o site guarda no{" "}
-              <strong>armazenamento local do seu próprio navegador</strong> apenas
-              as categorias aceitas ou recusadas, a versão deste aviso e a data da
-              decisão. Esse registro fica no seu dispositivo, não é enviado a
-              ninguém e vale por <strong>180 dias</strong>, após o que a escolha é
-              pedida de novo.
+              <strong>Controle por meio do navegador:</strong> Caso você deseje
+              desativar cookies de terceiros ou medição publicitária, é possível
+              bloqueá-los ou limpá-los a qualquer momento diretamente nas
+              configurações de privacidade do seu próprio navegador de internet.
             </p>
             <p>
-              Você pode mudar ou revogar a escolha a qualquer momento, sem
-              justificar e sem perder nenhuma função do site:
-            </p>
-            <p>
-              <BotaoPreferencias className="acao acao--ligar" />
-            </p>
-            <p>
-              Ao revogar, a preferência é apagada, as categorias voltam a ficar
-              negadas e a página é recarregada para que nada do que já havia sido
-              carregado continue ativo. Os cookies já gravados pelo Google podem
-              ser apagados nas configurações do seu navegador.
-            </p>
-            <p>
-              Não usamos Google Analytics, Meta Pixel, mapa de calor, gravação de
-              sessão nem impressão digital de navegador. As
-              fontes tipográficas e as imagens são servidas pelo próprio site, de
-              modo que a leitura das páginas, sem aceite, não gera requisição a
-              terceiros. Os links de WhatsApp e de telefone funcionam sem
-              JavaScript e sem depender de qualquer escolha de cookies.
+              Não usamos ferramentas invasivas como gravadores de sessão ou mapas
+              de calor de navegação. As fontes tipográficas e imagens são servidas
+              pela nossa própria infraestrutura, e os links de WhatsApp e telefone
+              permanecem links diretos e acessíveis.
             </p>
           </section>
 
@@ -250,8 +225,8 @@ export default function PoliticaDePrivacidadePage() {
                 <strong>Medir a audiência do site e o resultado dos anúncios do
                 Google Ads</strong>
                 <span>
-                  Base legal: consentimento (art. 7º, I), coletado antes do
-                  carregamento de qualquer script e revogável a qualquer momento.
+                  Base legal: legítimo interesse (art. 7º, IX), voltado a avaliar a
+                  eficácia técnica e comercial das campanhas sem identificação do visitante.
                 </span>
               </li>
               <li>
@@ -289,12 +264,11 @@ export default function PoliticaDePrivacidadePage() {
                 mantém os registros técnicos de acesso descritos acima.
               </li>
               <li>
-                <strong>Google.</strong> Somente se você aceitar a medição e a
-                publicidade. A tag do Google Ads envia ao Google LLC dados de
-                navegação como endereço IP, identificador de cookie, página
-                acessada e origem da visita. O Google atua como operador e, no
-                que fizer com esses dados para os seus próprios fins, como
-                controlador, nos termos das suas condições de serviço.
+                <strong>Google.</strong> A tag do Google Ads e o Google Tag Manager
+                enviam ao Google LLC métricas de navegação técnica e cliques de
+                conversão em contatos, sem dados pessoais identificáveis, para
+                apuração de eficácia de anúncios. O Google atua nos termos das suas
+                condições de serviço de publicidade e análise.
               </li>
               <li>
                 <strong>Autoridades.</strong> Quando houver ordem judicial,
@@ -302,14 +276,11 @@ export default function PoliticaDePrivacidadePage() {
               </li>
             </ul>
             <p>
-              <strong>Transferência internacional.</strong> Aceitando a medição,
-              os dados descritos acima são tratados pelo Google em servidores fora
-              do Brasil. A transferência se apoia no seu consentimento específico
-              (art. 33, VIII, da LGPD) e deixa de ocorrer a partir da revogação.
-              Ao usar o WhatsApp, o tratamento feito pela Meta também pode
-              envolver servidores fora do Brasil, nos termos da política daquele
-              serviço. Fora dessas hipóteses, não realizamos transferência
-              internacional de dados por iniciativa própria.
+              <strong>Transferência internacional.</strong> Os serviços do Google
+              e do WhatsApp podem tratar informações em servidores no exterior,
+              segundo os termos e garantias de privacidade de suas respectivas
+              plataformas. Fora dessas ferramentas operacionais, não realizamos
+              transferência internacional de dados por iniciativa própria.
             </p>
           </section>
 
@@ -326,15 +297,10 @@ export default function PoliticaDePrivacidadePage() {
                 pelo prazo exigido pela legislação tributária.
               </li>
               <li>
-                <strong>Preferência de cookies:</strong> guardada no seu próprio
-                navegador por 180 dias, ou até você revogar a escolha ou limpar os
-                dados do site. Não temos acesso a esse registro.
-              </li>
-              <li>
-                <strong>Dados de medição do Google Ads, quando houver aceite:</strong>{" "}
-                guardados pelo Google conforme os prazos de retenção praticados
-                por ele na nossa conta de anúncios. Não mantemos cópia própria
-                desses dados.
+                <strong>Dados de medição do Google Ads e GTM:</strong> guardados
+                pelo Google conforme os padrões de retenção das ferramentas de
+                anúncios e estatísticas agregadas. Não mantemos banco de dados
+                próprio de visitantes.
               </li>
               <li>
                 <strong>Registros técnicos de acesso ao site:</strong> guardados
@@ -462,12 +428,11 @@ export default function PoliticaDePrivacidadePage() {
             <p>
               Esta política pode ser atualizada quando houver mudança nos
               serviços, na tecnologia do site ou na legislação. A data da última
-              atualização fica sempre no início da página. Mudança que amplie o
-              tratamento de dados será informada antes de entrar em vigor, e
-              nenhuma nova ferramenta de medição ou de publicidade é carregada
-              sem consentimento afirmativo. A atualização de 7 de outubro de 2026
-              registra a adoção da tag do Google Ads, submetida a esse mesmo
-              aviso de escolha.
+              atualização fica sempre no início da página. A atualização de
+              outubro de 2026 registrou a simplificação da experiência de navegação
+              com a remoção do banner de consentimento e a medição direta de
+              visitas e contatos para campanhas de emergência, mantendo a ausência
+              de coleta de dados pessoais em parâmetros técnicos.
             </p>
           </section>
 

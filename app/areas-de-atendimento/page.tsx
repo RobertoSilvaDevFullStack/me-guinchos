@@ -71,6 +71,13 @@ export default function AreasDeAtendimentoPage() {
                 <Pictograma nome="seta" tamanho={12} />
               </Link>
               <Link
+                href="/guincho-lapa-sp"
+                className="placa placa--branca px-4 py-2 text-sm font-bold text-[var(--azul)] hover:underline inline-flex items-center gap-2"
+              >
+                <span>Guincho na Lapa</span>
+                <Pictograma nome="seta" tamanho={12} />
+              </Link>
+              <Link
                 href="/guincho-osasco"
                 className="placa placa--branca px-4 py-2 text-sm font-bold text-[var(--azul)] hover:underline inline-flex items-center gap-2"
               >

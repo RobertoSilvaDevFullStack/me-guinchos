@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BotaoPreferencias } from "@/components/BotaoPreferencias";
 import { Pictograma } from "@/components/Pictograma";
 import { legalContent, siteContent } from "@/content/site";
 import { siteContactLinks } from "@/lib/contact";
@@ -27,7 +26,7 @@ export function SiteFooter() {
                 <Pictograma nome="relogio" tamanho={16} />
                 Horário
               </dt>
-              <dd>Domingo a domingo, das 7h às 22h</dd>
+              <dd>Atendimento 24 horas, todos os dias</dd>
             </div>
             <div>
               <dt>
@@ -49,12 +48,17 @@ export function SiteFooter() {
               {item.rotulo}
             </a>
           ))}
+          <Link href="/guincho-24-horas">Guincho 24 Horas</Link>
+          <Link href="/transporte-de-veiculos">Transporte de Veículos</Link>
+          <Link href="/transporte-de-empilhadeiras">Transporte de Empilhadeiras</Link>
+          <Link href="/servicos-de-reboque">Serviços de Reboque</Link>
+          <Link href="/solicitar-orcamento">Solicitar Orçamento</Link>
           <Link href="/areas-de-atendimento">Áreas para consulta</Link>
+          <Link href="/guincho-lapa-sp">Lapa</Link>
           <Link href="/guincho-vila-anastacio">Vila Anastácio</Link>
           <Link href="/guincho-marginal-tiete">Marginal Tietê</Link>
           <Link href="/guincho-zona-oeste-sp">Zona Oeste SP</Link>
           <Link href="/guincho-osasco">Osasco</Link>
-          <BotaoPreferencias className="rodape__preferencias" />
         </nav>
       </div>
 

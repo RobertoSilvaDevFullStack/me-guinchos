@@ -17,7 +17,7 @@ Uma interface clara e operacional, com o **veículo e a frota reais** no centro.
 2. **Serviços:** carro, moto, van/utilitário, carregamento/transporte de empilhadeiras e movimentação de cargas com empilhadeira própria, em cartões separados. Cada um com descrição objetiva e contato contextual; limites por chamado continuam para consulta.
 3. **Como acionar:** informar local, tipo de veículo e destino no contato; resposta humana avalia disponibilidade.
 4. **Prova visual:** as 12 imagens atuais enviadas pelo Manoel, com legendas vinculadas aos envios e alt factual; transporte fotografado não vira promessa automática de capacidade ou disponibilidade.
-5. **Cobertura e dúvidas:** raio aproximado de 20 km, 7h–22h todos os dias para todos os serviços e página agregadora de regiões para consulta. Nenhum município ou rodovia é prometido integralmente. Páginas de destino por localidade/rodovia só recebem link público após validação de cobertura e conteúdo próprio.
+5. **Cobertura e dúvidas:** raio aproximado de 20 km, atendimento 24 horas todos os dias para todos os serviços (ADR-012) e página agregadora de regiões para consulta. Nenhum município ou rodovia é prometido integralmente. Páginas de destino por localidade/rodovia só recebem link público após validação de cobertura e conteúdo próprio.
 6. **Pagamento:** Pix, cartões e dinheiro confirmados, em composição HTML/CSS própria; condições não informadas são consultadas no atendimento.
 7. **Contato final:** repetir WhatsApp e ligação, sem exigir formulário.
 

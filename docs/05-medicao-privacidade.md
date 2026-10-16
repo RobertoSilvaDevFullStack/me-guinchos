@@ -77,3 +77,14 @@ Reverter qualquer uma das duas é uma decisão de negócio, não um ajuste técn
 ### Resolução de duplicidade (09/10/2026)
 
 A tag direta `gtag-google-ads` e a chamada `gtag("config", AW-18490859899)` foram removidas de `components/ConsentimentoMedicao.tsx`. O gerenciamento da Tag Base do Google Ads, remarketing e conversões passa a ser 100% governado dentro do container `GTM-55QGH9RR`, eliminando o risco de dupla contagem e preservando o Consent Mode v2 e o evento `whatsapp_click` no `dataLayer`.
+
+## Atualização de negócio (16/10/2026) — Remoção da barreira de consentimento
+
+Em decorrência de impacto negativo no alcance, relevância e aprendizado de lances automatizados do Google Ads (onde usuários em situação emergencial de socorro mecânico não interagiam com o banner e bloqueavam 100% dos sinais de conversão), a barreira de consentimento prévio foi revogada por decisão de negócio.
+
+- **Remoção de componentes:** `ConsentimentoMedicao` e `BotaoPreferencias` foram retirados da árvore de componentes e do layout.
+- **Carregamento direto do GTM:** `components/GoogleTagManager.tsx` carrega o container `GTM-55QGH9RR` via `next/script` assíncrono (`strategy="afterInteractive"`).
+- **Consent Mode v2:** Inicializado com `default: granted` antes do `gtm.start`, liberando a tag de conversão do Google Ads para todos os visitantes.
+- **Eventos:** Os eventos `whatsapp_click` e `phone_click` continuam sendo emitidos normalmente no `dataLayer` em `lib/tracking.ts`.
+- **Política de Privacidade:** Atualizada com base legal de legítimo interesse para métricas agregadas de campanhas, mantendo a garantia de inexistência de dados pessoais (PII) nos parâmetros de rede.
+

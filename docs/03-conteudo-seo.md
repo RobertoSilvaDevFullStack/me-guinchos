@@ -85,14 +85,14 @@ A promessa do anúncio, o H1, o serviço descrito, a área/trecho e o destino do
 | Transporte de empilhadeiras | `Transporte de empilhadeiras em [PREENCHER: REGIÃO]` | Foto de carga e capacidade confirmadas | Solicitar orçamento, quando ativo |
 | Serviço com empilhadeira | `Serviços com empilhadeira em [PREENCHER: REGIÃO]` | Foto da operação própria, equipamento, operador e capacidade confirmados | Solicitar orçamento, quando ativo |
 
-Exemplo de apoio: “Seu veículo parou? Informe onde ele está e qual é o modelo para consultar o atendimento.” O horário confirmado pode aparecer como **“Atendimento todos os dias, das 7h às 22h”**, inclusive nas páginas de empilhadeira. Não escrever “24 horas”, “chegamos em X minutos”, “menor preço”, cobertura rodoviária integral ou capacidade sem confirmação. O usuário confirmou **Pix, cartões e dinheiro**; confirmou também as bandeiras mostradas na arte de referência. Antes de exibir logotipos individuais, identificar cada bandeira na imagem e usar arquivos com direito de uso próprio. A estrutura da seção da JHC pode orientar a apresentação, com imagem, identidade e texto próprios da ME. Não inferir parcelamento, condições ou modalidades de cartão não informadas.
+Exemplo de apoio: “Seu veículo parou? Informe onde ele está e qual é o modelo para consultar o atendimento.” O horário confirmado é **“Atendimento 24 horas, todos os dias”** (ampliado conforme contratação de novo motorista, ver ADR-012), inclusive nas páginas de empilhadeira. Não inventar “chegamos em X minutos”, “menor preço”, cobertura rodoviária integral ou capacidade sem confirmação. O usuário confirmou **Pix, cartões e dinheiro**; confirmou também as bandeiras mostradas na arte de referência. Antes de exibir logotipos individuais, identificar cada bandeira na imagem e usar arquivos com direito de uso próprio. A estrutura da seção da JHC pode orientar a apresentação, com imagem, identidade e texto próprios da ME. Não inferir parcelamento, condições ou modalidades de cartão não informadas.
 
 ## Requisitos de descoberta
 
 - Cada rota indexável: `title` e descrição próprios, canonical absoluta, um H1, Open Graph/Twitter com imagem aprovada, `lang="pt-BR"` e conteúdo em HTML legível sem JavaScript.
 - Raiz pública: `/robots.txt`, `/sitemap.xml` e `/llms.txt`; sitemap apenas com páginas 200, canônicas e autorizadas a indexar; `lastmod` apenas quando real. `robots.txt` referencia o sitemap somente depois da liberação de rastreamento.
 - JSON-LD `LocalBusiness`/`Organization` e `Service` somente com dados confirmados e consistentes com a página. Validar com a [documentação do Google](https://developers.google.com/search/docs/appearance/structured-data/local-business) e teste de resultados avançados.
-- Se informar horários em HTML, metadados ou JSON-LD, usar a mesma janela confirmada para todos os serviços: **todos os dias, 7h–22h**. Não publicar variantes “24h” herdadas de referências.
+- Se informar horários em HTML, metadados ou JSON-LD, usar a janela confirmada: **24 horas, todos os dias** (`opens: "00:00"`, `closes: "23:59"`).
 - Nome, telefone e área coerentes com o Perfil da Empresa; se o negócio atende no local do cliente, confirmar a configuração de área de serviço e exibição do endereço conforme [Google Business Profile](https://support.google.com/business/answer/3038177?hl=pt-BR).
 - Fotos com nome, tamanho, legenda e alt factuais; não forçar palavras-chave em alt.
 
@@ -102,4 +102,4 @@ O domínio canônico confirmado é `https://meguinchos.com.br`, sem `www`. Antes
 
 ## Campanhas
 
-Separar grupos de anúncios por serviço e geografia real; a página de destino deve corresponder ao anúncio. Programação e texto de anúncio devem respeitar o atendimento **diário, das 7h às 22h**, sem promessa de disponibilidade fora desse intervalo. UTMs podem identificar campanha, mas não devem conter telefone, placa, localização precisa ou outros dados pessoais. Publicação de anúncios depende das mesmas confirmações de oferta, limites, área e contato que o site.
+Separar grupos de anúncios por serviço e geografia real; a página de destino deve corresponder ao anúncio. Programação e texto de anúncio devem respeitar o atendimento **24 horas, todos os dias**, com cobertura ininterrupta. UTMs podem identificar campanha, mas não devem conter telefone, placa, localização precisa ou outros dados pessoais. Publicação de anúncios depende das mesmas confirmações de oferta, limites, área e contato que o site.

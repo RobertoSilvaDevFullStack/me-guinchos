@@ -8,6 +8,8 @@
 
 **Atualização de 02/10/2026:** 12 fotografias atuais enviadas pelo Manoel na noite anterior substituem o acervo operacional exibido. As legendas associadas aos envios são aplicadas com correção apenas de ortografia evidente; a origem e a redação original ficam no manifesto de mídia. A menção a 7 toneladas descreve somente a empilhadeira daquele registro e não autoriza declarar capacidade máxima do serviço. Fotos de empilhadeiras continuam sendo prova de transporte, não de movimentação de cargas no local.
 
+**Atualização de 16/10/2026:** O cliente contratou um novo motorista para a escala noturna e confirmou a ampliação operacional para **atendimento 24 horas, 7 dias por semana**, inclusive madrugadas, domingos e feriados (ver ADR-012). O site e as 6 landing pages passam a comunicar o serviço 24h de forma factual e transparente.
+
 ## Resultado esperado
 
 Um visitante mobile que chegou por anúncio entende o serviço e consegue chamar a ME por WhatsApp ou telefone em poucos segundos. O site apresenta provas reais, evita promessas não confirmadas e é indexável para serviços e áreas efetivamente atendidos.
@@ -46,8 +48,8 @@ Um visitante mobile que chegou por anúncio entende o serviço e consegue chamar
 | RF04 | Serviços de carro, moto e van/utilitário são diferenciados. | Cada serviço tem texto e prova correspondentes, sem listar capacidade não comprovada. |
 | RF05 | Empilhadeira distingue carregamento/transporte e movimentação de cargas com equipamento próprio. | As duas ofertas são apresentadas separadamente, com escopo técnico ainda em validação; não se usa foto de transporte como prova de operação. |
 | RF06 | Galeria curta usa fotos autorizadas e acessíveis. | Cada imagem possui origem registrada, alt factual quando informativa e tamanho responsivo. |
-| RF07 | Área e horário são apresentados apenas na precisão aprovada. | O horário 7h–22h, todos os dias, vale para todos os serviços. Raio aproximado não vira cobertura integral de cidades ou rodovias; não aparece promessa de 24h. |
-| RF08 | Visitante pode mudar consentimento de medição. | Estados aceitar/rejeitar/gerenciar/revogar funcionam; CTA de contato permanece disponível. |
+| RF07 | Área e horário são apresentados apenas na precisão aprovada. | O horário de atendimento 24 horas, todos os dias (7 dias por semana), vale para guincho e serviços ativos (ADR-012). Raio aproximado não vira cobertura integral de cidades ou rodovias. |
+| RF08 | Mensuração direta e transparente de conversões sem barreira visual. | Tags de GTM e Google Ads carregam assincronamente sem bloquear a navegação ou exigir clique em banner; sem PII em parâmetros (ADR-010). |
 | RF09 | Cada rota pública tem conteúdo, metadados e navegação coerentes. | Páginas sem oferta aprovada não entram em sitemap, indexação ou anúncios. |
 | RF10 | Quando houver migração do domínio atual, URLs antigas relevantes chegam ao equivalente novo. | Inventário e redirects 301 aprovados e testados antes do lançamento. |
 | RF11 | Hero apresenta serviços em slides selecionáveis manualmente. | Primeiro estado de guincho e dois CTAs permanecem claros em 360/390 px e com JS bloqueado; sem avanço automático; controles, foco, leitura e redução de movimento acessíveis; serviço pendente não é anunciado como ativo. |
@@ -56,10 +58,10 @@ Um visitante mobile que chegou por anúncio entende o serviço e consegue chamar
 
 ## Cenários de comportamento
 
-1. **Dado** visitante em 360 px sem consentimento, **quando** abre a home, **então** vê guincho e ações de WhatsApp/ligar e consegue acioná-las sem scripts de terceiros.
+1. **Dado** visitante em 360 px, **quando** abre a home, **então** vê guincho e ações de WhatsApp/ligar e consegue acioná-las sem scripts de terceiros ou barreiras visuais flutuantes.
 2. **Dado** anúncio de guincho para moto, **quando** abre a página de destino, **então** o H1, prova e CTA tratam de moto e região realmente atendida.
 3. **Dado** equipamento próprio informado, mas operador, capacidade e disponibilidade não validados, **quando** o site é gerado para produção, **então** `/servicos-com-empilhadeira/` e seus metadados só são publicados após aprovar o escopo factual; a rota de transporte tem status independente.
-4. **Dado** visitante rejeitou medição, **quando** aciona WhatsApp, **então** o link funciona e nenhum evento de Analytics/Ads é transmitido.
+4. **Dado** visitante aciona WhatsApp ou discador, **quando** clica no CTA, **então** o link funciona sem atraso e o evento de conversão é enviado ao dataLayer para otimização de campanha no Google Ads.
 5. **Dado** fotografia sem autorização ou descrição correta, **quando** ocorre a curadoria, **então** ela fica fora da seleção publicável.
 6. **Dado** visitante em 360 px sem JavaScript, **quando** abre a home, **então** encontra o primeiro slide de guincho e consegue acionar WhatsApp ou ligação sem interagir com o controle de slides.
 7. **Dado** condição de pagamento ou setor/trecho local ainda sem confirmação, **quando** o build de produção é executado, **então** a alegação e a rota correspondente não são publicadas nem usadas como destino de anúncio.
@@ -72,7 +74,7 @@ Um visitante mobile que chegou por anúncio entende o serviço e consegue chamar
 | RNF01 | Mobile-first e acessibilidade | Verificações em 360, 390, 768, 1280 px; sem overflow; toque ≥44×44 px; teclado, foco, contraste, zoom e redução de movimento. |
 | RNF02 | Performance mobile | Medir Lighthouse e CWV em mobile; registrar baseline e resultado após ajustes. Alvos de campo: LCP ≤2,5 s, INP ≤200 ms, CLS ≤0,1 quando houver dados de campo; não declarar cumprimento só por build. |
 | RNF03 | Resiliência | Conteúdo e links essenciais renderizados em HTML e utilizáveis com JS bloqueado/conexão limitada. |
-| RNF04 | Privacidade | Nenhum script não essencial antes do aceite; política com controlador e contato aprovados; sem PII em eventos/URLs. |
+| RNF04 | Privacidade e transparência | Política de privacidade publicada e acessível com controlador e canal de contato; medição técnica sem PII em eventos/URLs; links essenciais utilizáveis sem JS. |
 | RNF05 | SEO técnico | Canonical, OG, JSON-LD válido, `lang=pt-BR`, `robots.txt`, `sitemap.xml`, `llms.txt`; apenas fatos e URLs aprovados. |
 | RNF06 | Segurança | Dependências mínimas, sem segredos no cliente/repo, HTTPS, links externos seguros, atualização de dependências antes de deploy. |
 

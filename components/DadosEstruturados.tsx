@@ -15,8 +15,7 @@ import { siteContactLinks } from "@/lib/contact";
  *   CNPJ (D08) e já são exibidos na Política de Privacidade, portanto não há
  *   dado novo sendo tornado público aqui;
  * - telefone é o número definitivo da D02;
- * - horário é a janela confirmada na D04: todos os dias, 7h–22h, igual para
- *   todos os serviços. Nunca "24h";
+ * - horário confirmado: atendimento 24 horas, todos os dias da semana (inclusive madrugada);
  * - formas de pagamento são as confirmadas na D08;
  * - os serviços reproduzem os cartões da home, sem limite técnico, coerentes
  *   com a decisão consultiva de D01/D05.
@@ -43,8 +42,8 @@ const horarioConfirmado = {
     "Saturday",
     "Sunday",
   ],
-  opens: "07:00",
-  closes: "22:00",
+  opens: "00:00",
+  closes: "23:59",
 } as const;
 
 const negocio = {
