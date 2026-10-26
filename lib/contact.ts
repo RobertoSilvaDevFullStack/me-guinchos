@@ -10,10 +10,12 @@
  * `approvalStatus: "confirmado"` é aprovação **editorial**. O teste técnico dos
  * links em aparelho real — abrir conversa, abrir discador e confirmar o
  * recebimento pelo responsável — continua pendente e segue listado na D02.
+ *
+ * Dia 26/10/2026: substituído o número `+55 11 95199-8799` pelo correto `+55 11 99836-9565`, que é o número oficial da ME Guinchos. A alteração foi feita para corrigir a divergência registrada em `docs/00-contexto-fontes.md` e garantir que o site exiba o número correto para contato. O status de aprovação editorial permanece como "confirmado", mas o teste técnico dos links ainda está pendente e será realizado posteriormente.
  */
 export const sitePhone = {
-  e164: "+5511930299233",
-  display: "(11) 93029-9233",
+  e164: "+5511998369565",
+  display: "(11) 99836-9565",
   approvalStatus: "confirmado",
 } as const;
 
@@ -27,7 +29,11 @@ export type ContactLinks = {
 };
 
 export function buildContactLinks(
-  phone: { e164: string; display: string; approvalStatus: ContactLinks["approvalStatus"] },
+  phone: {
+    e164: string;
+    display: string;
+    approvalStatus: ContactLinks["approvalStatus"];
+  },
   message: string,
 ): ContactLinks {
   if (!/^\+[1-9]\d{7,14}$/.test(phone.e164)) {
@@ -35,7 +41,9 @@ export function buildContactLinks(
   }
 
   if (!phone.display.trim() || !message.trim()) {
-    throw new Error("Exibição do telefone e mensagem inicial são obrigatórias.");
+    throw new Error(
+      "Exibição do telefone e mensagem inicial são obrigatórias.",
+    );
   }
 
   return {
@@ -51,4 +59,3 @@ export function criarLinkWhatsApp(mensagem: string): string {
 }
 
 export const siteContactLinks = buildContactLinks(sitePhone, initialMessage);
-
