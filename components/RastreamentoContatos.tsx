@@ -27,33 +27,38 @@ export function RastreamentoContatos() {
     obterDataLayer();
 
     function tratarCliqueGlobal(evento: MouseEvent) {
-      const alvo = evento.target;
-      if (!(alvo instanceof Element)) return;
+      try {
+        const alvo = evento.target;
+        if (!(alvo instanceof Element)) return;
 
-      const link = alvo.closest("a");
-      if (!link) return;
+        const link = alvo.closest("a");
+        if (!link) return;
 
-      const href = link.href || link.getAttribute("href") || "";
-      if (!href) return;
+        const href = link.href || link.getAttribute("href") || "";
+        if (!href) return;
 
-      const page_path = window.location.pathname;
-      const page_location = window.location.href;
-      const button_location = identificarLocalizacaoBotao(link);
+        const page_path = window.location.pathname;
+        if (page_path.startsWith("/painel-monitoramento")) return;
+        const page_location = window.location.href;
+        const button_location = identificarLocalizacaoBotao(link);
 
-      if (ehLinkWhatsApp(href)) {
-        registrarCliqueWhatsApp({
-          page_path,
-          page_location,
-          button_location,
-          link_url: href,
-        });
-      } else if (ehLinkTelefone(href)) {
-        registrarCliqueTelefone({
-          page_path,
-          page_location,
-          button_location,
-          link_url: href,
-        });
+        if (ehLinkWhatsApp(href)) {
+          registrarCliqueWhatsApp({
+            page_path,
+            page_location,
+            button_location,
+            link_url: href,
+          });
+        } else if (ehLinkTelefone(href)) {
+          registrarCliqueTelefone({
+            page_path,
+            page_location,
+            button_location,
+            link_url: href,
+          });
+        }
+      } catch {
+        // Falha silenciosa: nunca afetar o clique nativo em wa.me ou tel:
       }
     }
 

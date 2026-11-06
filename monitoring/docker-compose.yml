@@ -1,0 +1,113 @@
+# Compose de Produção para o Serviço Isolado de Monitoramento — ME Guinchos (Coolify 4.6.0 / Hostinger VPS)
+# Arquitetura de Segurança:
+# 1. Nem `monitoring-db` (PostgreSQL 17) nem `monitoring-api` possuem `ports:` expostas no host.
+# 2. Ambos declaram `traefik.enable=false` (sem domínio público e sem roteamento externo no Traefik).
+# 3. `monitoring-db` reside exclusivamente na rede `monitoring_db_net` (`internal: true`), isolado da internet e da rede `coolify`.
+# 4. `monitoring-api` roda na porta 4000, enxerga o `monitoring-db` via `monitoring_db_net` e recebe chamadas do Next.js via rede `coolify` exigindo assinatura criptográfica HMAC-SHA256 (`MONITORING_BRIDGE_SECRET`) + anti-replay em todas as rotas `/api/v1/*`.
+
+services:
+  monitoring-db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=false"
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=64MB"
+      - "-c"
+      - "work_mem=4MB"
+      - "-c"
+      - "maintenance_work_mem=32MB"
+      - "-c"
+      - "max_connections=30"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-monitoring_db}
+      POSTGRES_USER: ${POSTGRES_USER:-monitoring_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no ambiente}
+    volumes:
+      - monitoring_pgdata:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - monitoring_db_net
+    cpus: 0.50
+    mem_limit: 256m
+    mem_reservation: 64m
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          cpus: "0.10"
+          memory: 64M
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER:-monitoring_user} -d $${POSTGRES_DB:-monitoring_db}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  monitoring-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=false"
+    depends_on:
+      monitoring-db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      HOSTNAME: "0.0.0.0"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-monitoring_user}:${POSTGRES_PASSWORD}@monitoring-db:5432/${POSTGRES_DB:-monitoring_db}
+      MONITORING_BRIDGE_SECRET: ${MONITORING_BRIDGE_SECRET:?Defina MONITORING_BRIDGE_SECRET com no minimo 32 caracteres}
+      BRIDGE_MAX_SKEW_MS: ${BRIDGE_MAX_SKEW_MS:-30000}
+      TRUSTED_PROXY_CIDRS: ${TRUSTED_PROXY_CIDRS:-172.16.1.0/24}
+      MAX_TRUSTED_PROXY_HOPS: ${MAX_TRUSTED_PROXY_HOPS:-2}
+      REJECT_PRIVATE_CLIENT_IPS: ${REJECT_PRIVATE_CLIENT_IPS:-true}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-https://memorettiguinchos.com.br}
+      RETENTION_DAYS: ${RETENTION_DAYS:-30}
+      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-60000}
+      RATE_LIMIT_MAX_EVENTS: ${RATE_LIMIT_MAX_EVENTS:-60}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin_memoretti}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:-}
+    expose:
+      - "4000"
+    networks:
+      monitoring_db_net:
+      coolify:
+        aliases:
+          - monitoring-api
+    cpus: 0.50
+    mem_limit: 256m
+    mem_reservation: 64m
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          cpus: "0.10"
+          memory: 64M
+
+networks:
+  monitoring_db_net:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.29.11.0/29
+
+  coolify:
+    external: true
+
+volumes:
+  monitoring_pgdata:
+    name: memoretti_monitoring_pgdata
