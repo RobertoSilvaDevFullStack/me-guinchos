@@ -29,15 +29,20 @@ export function FormularioOrcamento() {
     ].filter(Boolean);
 
     const mensagemFormatada = linhasMensagem.join("\n");
-    const linkDestino = `https://wa.me/${sitePhone.e164.slice(1)}?text=${encodeURIComponent(mensagemFormatada)}`;
+    const urlBaseWhatsApp = `https://wa.me/${sitePhone.e164.slice(1)}`;
+    const linkDestino = `${urlBaseWhatsApp}?text=${encodeURIComponent(mensagemFormatada)}`;
 
-    // Registra a conversão no dataLayer
-    registrarCliqueWhatsApp({
-      page_path: typeof window !== "undefined" ? window.location.pathname : "/solicitar-orcamento",
-      page_location: typeof window !== "undefined" ? window.location.href : "",
-      button_location: "form_orcamento_submit",
-      link_url: linkDestino,
-    });
+    // Registra a conversão no dataLayer usando apenas a URL base sem PII (?text= omitido)
+    try {
+      registrarCliqueWhatsApp({
+        page_path: typeof window !== "undefined" ? window.location.pathname : "/solicitar-orcamento",
+        page_location: typeof window !== "undefined" ? window.location.href : "",
+        button_location: "form_orcamento_submit",
+        link_url: urlBaseWhatsApp,
+      });
+    } catch {
+      // Falha silenciosa: rastreamento nunca deve interromper o acionamento do WhatsApp
+    }
 
     setEnviado(true);
 

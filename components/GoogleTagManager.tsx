@@ -1,8 +1,14 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { GTM_ID } from "@/lib/medicao";
 
 /**
- * Google Tag Manager (GTM-55QGH9RR) carregado diretamente no layout raiz.
+ * Google Tag Manager (GTM-55QGH9RR) carregado diretamente no layout raiz
+ * para todas as páginas públicas, e suprimido exclusivamente nas rotas
+ * privadas de `/painel-monitoramento` para que sessões administrativas jamais
+ * interfiram nas métricas do Google Ads ou vazem a rota privada a terceiros.
  *
  * Configurado com Consent Mode v2 em 'granted' por padrão e inicialização
  * imediata do dataLayer e do gtm.js via Script strategy="afterInteractive".
@@ -13,6 +19,11 @@ import { GTM_ID } from "@/lib/medicao";
  * 4. O carregamento assíncrono preserva integralmente a performance mobile (LCP, INP e CLS).
  */
 export function GoogleTagManager() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/painel-monitoramento")) {
+    return null;
+  }
+
   return (
     <>
       <Script

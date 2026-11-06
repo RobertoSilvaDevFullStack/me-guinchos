@@ -1,0 +1,24 @@
+{
+  "name": "@me-guinchos/monitoring-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types src/server.ts",
+    "test": "node --test tests/monitoring.test.mts tests/postgres-integration.test.mts",
+    "test:pg": "node --test tests/postgres-integration.test.mts",
+    "test:pg:strict": "node --input-type=module -e \"import { spawn } from 'node:child_process'; const p = spawn(process.execPath, ['--test', 'tests/postgres-integration.test.mts'], { stdio: 'inherit', env: { ...process.env, REQUIRE_REAL_POSTGRES: '1' } }); p.on('exit', (code) => process.exit(code ?? 1));\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "@types/pg": "^8.15.2",
+    "typescript": "^5.9.3"
+  }
+}
