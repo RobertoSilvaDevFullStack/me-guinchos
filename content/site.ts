@@ -35,8 +35,10 @@ export const siteContent = {
     h1: "Guincho para carros e motos na zona oeste de SP",
     description:
       "Guincho plataforma para carros, motos, vans e utilitários. Informe o veículo, o local e o destino para consultar o atendimento.",
-    regionLabel: "Raio aproximado de 20 km a partir da zona oeste de São Paulo. Consulte seu endereço.",
-    hoursLabel: "Atendimento 24 horas, todos os dias da semana, para todos os serviços.",
+    regionLabel:
+      "Raio aproximado de 20 km a partir da zona oeste de São Paulo. Consulte seu endereço.",
+    hoursLabel:
+      "Atendimento 24 horas, todos os dias da semana, para todos os serviços.",
     whatsappLabel: "Consultar pelo WhatsApp",
     phoneLabel: "Ligar agora",
   },
@@ -68,7 +70,7 @@ export const legalContent = {
   atualizadoEm: "7 de outubro de 2026",
   desenvolvedor: {
     nome: "Roberto Silva",
-    url: "https://robertosilvadevfullstack.cloud/",
+    url: "https://saveforge.com.br/",
   },
 } as const;
 
@@ -213,7 +215,8 @@ export const paymentContent = {
       title: "Cartões",
       subtitle: "Aceitamos as principais bandeiras no débito e crédito",
       imageSrc: "/images/preview/cartoes-pagamento.webp",
-      imageAlt: "Bandeiras aceitas: Mastercard, Visa, American Express, Diners Club, Hipercard e Elo",
+      imageAlt:
+        "Bandeiras aceitas: Mastercard, Visa, American Express, Diners Club, Hipercard e Elo",
       badge: "Débito e Crédito",
       icone: "cartao",
     },
@@ -230,7 +233,8 @@ export const paymentContent = {
 } as const;
 
 export const coverageContent = {
-  summary: "A referência de atendimento é um raio aproximado de 20 km a partir da zona oeste de São Paulo. Confirme o endereço e o trecho antes de fechar o serviço.",
+  summary:
+    "A referência de atendimento é um raio aproximado de 20 km a partir da zona oeste de São Paulo. Confirme o endereço e o trecho antes de fechar o serviço.",
   places: [
     "Barueri",
     "Osasco",
@@ -361,7 +365,11 @@ export function metadataDaRota({
     alternates: { canonical: path },
     robots: INDEXACAO_LIBERADA
       ? { index: true, follow: true, googleBot: { index: true, follow: true } }
-      : { index: false, follow: false, googleBot: { index: false, follow: false } },
+      : {
+          index: false,
+          follow: false,
+          googleBot: { index: false, follow: false },
+        },
     openGraph: {
       type: "website",
       siteName: siteContent.brandName,
